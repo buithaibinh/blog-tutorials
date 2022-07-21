@@ -1,0 +1,13 @@
+{
+  "name": "launcher",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.100",
+    "aws-lambda": "^1.0.7"
+  },
+  "dependencies": {
+    "@aws-sdk/util-dynamodb": "^3.112.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "docker-lambda-python-node",
+  "version": "1.0.0",
+  "description": "Python and nodejs on Docker",
+  "author": "Binh Bui <buithaibinh@gmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1118.0"
+  }
+}

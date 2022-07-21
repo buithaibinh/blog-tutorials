@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.codewithyou.com/about</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/blog</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/blog/docker-lambda-node-with-python</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/blog/api-mocking-example-mock-service-worker</loc>
+  </url>
+
+  <url>
+    <loc
+      >https://www.codewithyou.com/blog/aws-cdk-using-amazon-api-gateway-as-a-proxy-for-dynamodb</loc
+    >
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/blog/http-proxy-apigateway</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/blog/issues-datetime-with-serverless-functions</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/api</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/api-gateway</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/cdk</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/docker</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/dynamodb</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/lambda</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/mock</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/nextjs</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/python</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/serverless</loc>
+  </url>
+
+  <url>
+    <loc>https://www.codewithyou.com/tags/tip</loc>
+  </url>
+</urlset>

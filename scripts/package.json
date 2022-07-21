@@ -1,0 +1,13 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "dedent": "^0.7.0",
+    "inquirer": "^9.0.2",
+    "moment": "^2.29.4",
+    "xml2js": "^0.4.23"
+  }
+}

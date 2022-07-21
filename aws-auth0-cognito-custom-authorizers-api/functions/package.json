@@ -1,0 +1,11 @@
+{
+  "name": "aws-auth0-cognito-custom-authorizers-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.5",
+    "request": "^2.88.2"
+  }
+}
