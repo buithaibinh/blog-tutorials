@@ -1,9 +1,11 @@
 # CodeWithYou.com - Everything about Web Development and Cloud Computing.
-## Last Updated: 2022-07-21
+## Last Updated: 2022-08-01
 
 
 Title | Published
 --- | ---
+[**Cloudfront restrict user access by signed URLs**](https://www.codewithyou.com/blog/cloudfront-restrict-user-access-by-signed-urls)| 2022-08-01
+[**AWS Backup resources assignment by Tag using AWS CDK**](https://www.codewithyou.com/blog/example-aws-backup-resources-assignment-by-tag)| 2022-07-22
 [**API Gateway Authorizer Function for Auth0 or AWS Cognito using the JWKS method.**](https://www.codewithyou.com/blog/api-gateway-authorizer-function-for-auth0-or-aws-cognito-using-the-jwks-method)| 2022-07-21
 [**Configuring Amazon Cognito authentication for OpenSearch Dashboards in AWS CDK**](https://www.codewithyou.com/blog/launch-amazon-elasticsearch-service-with-amazon-cognito-user-pools)| 2022-07-20
 [**How to use parameters in AWS CDK?**](https://www.codewithyou.com/blog/how-to-use-parameters-in-aws-cdk)| 2022-07-19
