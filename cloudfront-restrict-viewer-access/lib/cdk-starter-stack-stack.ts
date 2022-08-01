@@ -7,6 +7,7 @@ import {
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 
@@ -50,6 +51,19 @@ export class CdkStarterStackStack extends Stack {
     const cloudfrontOAI = new cloudfront.OriginAccessIdentity(this, 'my-oai', {
       comment: 'demo-bucket origin access identity',
     });
+
+    // assign get object permission to cloudfront OAI
+    bucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        actions: ['s3:GetObject'],
+        resources: [bucket.arnForObjects('*')],
+        principals: [
+          new iam.CanonicalUserPrincipal(
+            cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId
+          ),
+        ],
+      })
+    );
 
     // 2. Create a CloudFront distribution
     const distribution = new cloudfront.Distribution(
