@@ -10,22 +10,27 @@ A repository for an article on
 2. Install the dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
-3. Create the CDK stack
+3. Generate key pair
+
+```bash
+openssl genrsa -out ./keys/private_key.pem 2048
+openssl rsa -pubout -in ./keys/private_key.pem -out ./keys/public_key.pem
+```
+4. Deploy the stack
 
 ```bash
 npx cdk deploy \
   --outputs-file ./cdk-outputs.json
 ```
 
-4. Open the AWS CloudFormation Console and the stack should be created in your default region
-
-5. Cleanup
+## Testing
 
 ```bash
-npx cdk destroy
+cd scripts
+node index.js
 ```
 
 ## Useful commands

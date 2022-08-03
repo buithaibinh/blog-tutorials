@@ -11,6 +11,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 
+import * as fs from 'fs';
 export class CdkStarterStackStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -30,15 +31,7 @@ export class CdkStarterStackStack extends Stack {
 
     // cloudfront public key
     const pubKey = new cloudfront.PublicKey(this, 'MyPubKey', {
-      encodedKey: `-----BEGIN PUBLIC KEY-----
-      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0jZYspNP7h9cPpjbvcD1
-      4QkYAybuO9VBmyh5GgJY/WMuw5izWmkMGVIOUf6SL/qu/YGGFw07BI/oytRcKknx
-      iCRWASq8BkMAXn/9rWQkFN0i9p4WB/iviS2Jez8T6ML8NvYd963bvm60I+W0ciEO
-      tUiBGJlgIajVisLyboFMZMvGubWAsZ/uoRYvbG73rdr4pCayhJGYrO4LfUgpzBwP
-      EIxywq536wdNv2eEPs2B1Frq6Mjr6mV4G0x++srb+pv4vIQ2Brpwf26eFaYGFILb
-      ETvzM+nGQErRzstH5it3hk2OSay/pF/QVlzKt0GqzLB0tHZJLbpKcCYN6si7NUgK
-      2QIDAQAB
-      -----END PUBLIC KEY-----`,
+      encodedKey: fs.readFileSync('./keys/public_key.pem', 'utf8'),
       comment: 'demo public key',
     });
 

@@ -1,0 +1,14 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/cloudfront-signer": "^3.127.0",
+    "inquirer": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^8.2.1"
+  }
+}
