@@ -1,0 +1,10 @@
+{
+  "name": "ses-with-custom-header",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "aws-sdk": "^2.1187.0"
+  }
+}
