@@ -1,0 +1,13 @@
+{
+  "name": "aws-eb-single-instance-ssl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
