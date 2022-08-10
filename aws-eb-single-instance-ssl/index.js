@@ -3,7 +3,7 @@ const port = process.env.PORT || 8080;
 
 const server = createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello World\n This site serving by NodeJS 11+ letsencrypt');
+  res.end('Hello World\nThis site serving by NodeJS + letsencrypt');
 });
 
 // Listen on port 8080, IP defaults to 127.0.0.1
