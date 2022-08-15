@@ -11,6 +11,9 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "rdf-parse": "^2.1.0",
+    "rss-json": "^1.0.3-a",
+    "rss-to-json": "^2.1.0"
   }
 }

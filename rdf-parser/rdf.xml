@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
+  <channel>
+    <title>重要なお知らせ</title>
+    <link>https://www.city.fukuoka.lg.jp/topics.html</link>
+    <dc:source resource="https://www.city.fukuoka.lg.jp/topics.html"/>
+    <description>重要なお知らせ</description>
+    <dc:language>ja</dc:language>
+    <items>
+      <rdf:Seq>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/nCorV.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/hofuku/coronavaccine/wakutin.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/bousai/shingatakoronauirusukansensyouwofumaetasaigaijinohinannituite.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/shicho/koho/genyubukkataisaku_2022.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/zaisei/propertyuse/shisei/kihu/kifu_top.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/life/hittakurinigotyuuiwo.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/life/nisedenwasagichuui.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/shimin/shohiseikatsu/life/syouhiseikatusentauhoumupeiji/singenngou_2.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/shisei/taisetunaokosamawokoutuujikokaramamorimasyou.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/husinkoutaikensa.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/jutaku-toshi/bid_safe/bousai/burokkubeitenken.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/shimin/t_bousai/tsunagaru_plus.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/shimin/shohiseikatsu/life/syouhiseikatusentauhoumupeiji/kouenjigyou_20180320_3_2.html"/>
+        <rdf:li resource="https://www.city.fukuoka.lg.jp/hofuku/shokuhinanzen/life/syokuhinanzen-ansin/005_2.html"/>
+      </rdf:Seq>
+    </items>
+  </channel>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/nCorV.html">
+    <title>【福岡コロナ特別警報発動中】三密の回避や換気等、一人一人の感染対策の取組みをお願いします。（新型コロナウイルス感染症に関する情報／Information on COVID-19）</title>
+    <link>https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/nCorV.html</link>
+    <dc:description/>
+    <dc:date>Wed, 06 Jul 2022 03:00:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/hofuku/coronavaccine/wakutin.html">
+    <title>新型コロナワクチン接種に関する最新情報</title>
+    <link>https://www.city.fukuoka.lg.jp/hofuku/coronavaccine/wakutin.html</link>
+    <dc:description/>
+    <dc:date>Mon, 28 Feb 2022 07:05:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/bousai/shingatakoronauirusukansensyouwofumaetasaigaijinohinannituite.html">
+    <title>新型コロナウイルス感染症を踏まえた災害時の避難について</title>
+    <link>https://www.city.fukuoka.lg.jp/bousai/shingatakoronauirusukansensyouwofumaetasaigaijinohinannituite.html</link>
+    <dc:description/>
+    <dc:date>Sun, 27 Feb 2022 01:00:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/shicho/koho/genyubukkataisaku_2022.html">
+    <title>原油価格・物価高騰等を踏まえた経済対策等</title>
+    <link>https://www.city.fukuoka.lg.jp/shicho/koho/genyubukkataisaku_2022.html</link>
+    <dc:description/>
+    <dc:date>Sat, 26 Feb 2022 00:40:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/zaisei/propertyuse/shisei/kihu/kifu_top.html">
+    <title>ふるさと納税の受付を偽装した詐欺サイトにご注意ください【ふくおか応援寄付】</title>
+    <link>https://www.city.fukuoka.lg.jp/zaisei/propertyuse/shisei/kihu/kifu_top.html</link>
+    <dc:description/>
+    <dc:date>Sat, 26 Feb 2022 00:35:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/life/hittakurinigotyuuiwo.html">
+    <title>ひったくりにご注意を！</title>
+    <link>https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/life/hittakurinigotyuuiwo.html</link>
+    <dc:description/>
+    <dc:date>Thu, 28 Nov 2019 04:00:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/life/nisedenwasagichuui.html">
+    <title>区職員をかたったニセ電話詐欺にご注意ください！</title>
+    <link>https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/life/nisedenwasagichuui.html</link>
+    <dc:description/>
+    <dc:date>Sat, 20 Jul 2019 15:00:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/shimin/shohiseikatsu/life/syouhiseikatusentauhoumupeiji/singenngou_2.html">
+    <title>”ニセ”消費生活センターを案内する新手の架空請求の手口にご注意ください！</title>
+    <link>https://www.city.fukuoka.lg.jp/shimin/shohiseikatsu/life/syouhiseikatusentauhoumupeiji/singenngou_2.html</link>
+    <dc:description/>
+    <dc:date>Fri, 12 Jul 2019 02:00:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/shisei/taisetunaokosamawokoutuujikokaramamorimasyou.html">
+    <title>大切なお子様を交通事故から守りましょう！（特に新小学１年生の保護者の方へ）</title>
+    <link>https://www.city.fukuoka.lg.jp/shimin/seikatsuanzen/shisei/taisetunaokosamawokoutuujikokaramamorimasyou.html</link>
+    <dc:description/>
+    <dc:date>Tue, 05 Feb 2019 00:01:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/husinkoutaikensa.html">
+    <title>風しんにご注意ください（無料の抗体検査や予防接種の費用助成など）</title>
+    <link>https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/husinkoutaikensa.html</link>
+    <dc:description/>
+    <dc:date>Sat, 24 Nov 2018 15:01:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/jutaku-toshi/bid_safe/bousai/burokkubeitenken.html">
+    <title>ブロック塀を点検しましょう（除去工事の補助制度もあります）</title>
+    <link>https://www.city.fukuoka.lg.jp/jutaku-toshi/bid_safe/bousai/burokkubeitenken.html</link>
+    <dc:description/>
+    <dc:date>Wed, 20 Jun 2018 04:02:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/shimin/t_bousai/tsunagaru_plus.html">
+    <title>防災アプリ「ツナガル＋(プラス)」のサービス開始</title>
+    <link>https://www.city.fukuoka.lg.jp/shimin/t_bousai/tsunagaru_plus.html</link>
+    <dc:description/>
+    <dc:date>Wed, 09 May 2018 07:30:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/shimin/shohiseikatsu/life/syouhiseikatusentauhoumupeiji/kouenjigyou_20180320_3_2.html">
+    <title>子どもの「水の事故」と「幼児用座席付自転車の事故」に気を付けましょう</title>
+    <link>https://www.city.fukuoka.lg.jp/shimin/shohiseikatsu/life/syouhiseikatusentauhoumupeiji/kouenjigyou_20180320_3_2.html</link>
+    <dc:description/>
+    <dc:date>Wed, 09 May 2018 07:01:00 GMT</dc:date>
+  </item>
+  <item rdf:about="https://www.city.fukuoka.lg.jp/hofuku/shokuhinanzen/life/syokuhinanzen-ansin/005_2.html">
+    <title>1歳未満の乳児には「はちみつ」を食べさせないでください</title>
+    <link>https://www.city.fukuoka.lg.jp/hofuku/shokuhinanzen/life/syokuhinanzen-ansin/005_2.html</link>
+    <dc:description/>
+    <dc:date>Thu, 13 Apr 2017 04:26:00 GMT</dc:date>
+  </item>
+</rdf:RDF>
