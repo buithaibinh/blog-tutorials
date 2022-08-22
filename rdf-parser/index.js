@@ -6,7 +6,7 @@ const { readFileSync } = require('fs');
 
   // create a cheerio instance
   const $ = cheerio.load(data);
-  let collect = function (index, el) {
+  const collect = (index, el) => {
     const item = {};
     const url = $(el).attr('rdf:about');
     item.title = $(el).find('title').text();
