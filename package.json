@@ -1,0 +1,14 @@
+{
+  "name": "blog-tutorials",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:buithaibinh/blog-tutorials.git",
+  "author": "Binh Bui <binhbv@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
