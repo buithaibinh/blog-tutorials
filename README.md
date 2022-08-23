@@ -1,10 +1,16 @@
 # CodeWithYou.com - Everything about Web Development and Cloud Computing.
-## Last Updated: 2022-08-01
+## Last Updated: 2022-08-23
 
 
 Title | Published
 --- | ---
+[**Using husky and git-secrets to prevent committing sensitive information to a git repository.**](https://www.codewithyou.com/blog/using-husky-and-gitsecrets-to-prevent-committing-passwords-and-other-sensitive-information-to-a-git-repository)| 2022-08-23
+[**CloudScape Design with NextJS**](https://www.codewithyou.com/blog/cloudscape-design-with-nextjs)| 2022-08-22
+[**Save text file from S3 using aws-sdk v3**](https://www.codewithyou.com/blog/save-file-from-s3-using-awssdk-v3)| 2022-08-09
+[**Use Route53 + S3 to forward your domain to absolute URLs.**](https://www.codewithyou.com/blog/use-route53-s3-to-forward-your-domain-to-absolute-urls)| 2022-08-05
+[**AWS SES sends mails with a custom Reference header**](https://www.codewithyou.com/blog/aws-ses-custom-email-header)| 2022-08-03
 [**Cloudfront restrict user access by signed URLs**](https://www.codewithyou.com/blog/cloudfront-restrict-user-access-by-signed-urls)| 2022-08-01
+[**Show a progress bar when downloading files in Node.js**](https://www.codewithyou.com/blog/show-a-progress-bar-when-downloading-files-in-nodejs)| 2022-07-31
 [**AWS Backup resources assignment by Tag using AWS CDK**](https://www.codewithyou.com/blog/example-aws-backup-resources-assignment-by-tag)| 2022-07-22
 [**API Gateway Authorizer Function for Auth0 or AWS Cognito using the JWKS method.**](https://www.codewithyou.com/blog/api-gateway-authorizer-function-for-auth0-or-aws-cognito-using-the-jwks-method)| 2022-07-21
 [**Configuring Amazon Cognito authentication for OpenSearch Dashboards in AWS CDK**](https://www.codewithyou.com/blog/launch-amazon-elasticsearch-service-with-amazon-cognito-user-pools)| 2022-07-20
