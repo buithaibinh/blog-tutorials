@@ -1,0 +1,16 @@
+{
+  "name": "bvb-npx-sample",
+  "version": "1.0.4",
+  "description": "",
+  "main": "./bin/cmd.js",
+  "type": "module",
+  "bin": "./bin/cmd.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Binh Bui",
+  "license": "ISC"
+}
