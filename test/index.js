@@ -1,13 +1,9 @@
-const {
-  fromUrl,
-  fromBufferWithMimeType,
-  fromBuffer,
-} = require('@sk-global/text-extractor');
+var stringSimilarity = require('string-similarity');
+const text1 = `南三陸の民間の震災遺構「高野会館」で壁やガラス壊される被害　宮城 \n2022年10月06日15時11分\n\n宮城県南三陸町にある民間の震災遺構で壁やガラスが壊されているのが見つかり、警察が建造物損壊の疑いで捜査しています。\n\n今月2日、宮城県南三陸町の「高野会館」で、壁やガラスなどが壊されているのを所有するホテルの従業員が見つけ、警察に届け出ました。\n\n「高野会館」は冠婚葬祭場だった建物で、東日本大震災の津波被害を受け、その後、震災遺構として保存されています。普段は立ち入り禁止となっていて、1日午前に行われた「語り部」で内部に立ち入った際には異常はなかったということです。\n\n高野会館を所有　阿部長商店 阿部隆二郎副社長「いち被災地の住民としても非常に残念」\n\n警察が建造物損壊の疑いで捜査しています。\n\n`;
+
+const text2 = `南三陸の民間の震災遺構「高野会館」で壁やガラス壊される被害　宮城 \n2022年10月06日15時16分\n\n＊このニュースの動画は以下のリンクからティービーエス・ニュースディグのWebサイトでご覧いただけます。\nhttps://newsdig.tbs.co.jp/articles/-/172114\n\n宮城県南三陸町にある民間の震災遺構で壁やガラスが壊されているのが見つかり、警察が建造物損壊の疑いで捜査しています。\n\n今月2日、宮城県南三陸町の「高野会館」で、壁やガラスなどが壊されているのを所有するホテルの従業員が見つけ、警察に届け出ました。\n\n「高野会館」は冠婚葬祭場だった建物で、東日本大震災の津波被害を受け、その後、震災遺構として保存されています。普段は立ち入り禁止となっていて、1日午前に行われた「語り部」で内部に立ち入った際には異常はなかったということです。\n\n高野会館を所有　阿部長商店 阿部隆二郎副社長「いち被災地の住民としても非常に残念」\n\n警察が建造物損壊の疑いで捜査しています。\n\n`;
 
 (async () => {
-  console.log('Hello World!');
-  const text = await fromUrl(
-    'https://www.digital.go.jp/assets/contents/node/basic_page/field_ref_resources/d6cfdcdd-75e4-460c-9ec0-af4f952e03d5/20210906_meeting_promoting_01.pdf'
-  );
-  console.log(text);
+  var similarity = stringSimilarity.compareTwoStrings(text1, text2);
+  console.log(similarity);
 })();

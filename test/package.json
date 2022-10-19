@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@sk-global/text-extractor": "^0.1.0"
+    "@sk-global/text-extractor": "^0.1.0",
+    "string-similarity": "^4.0.4"
   }
 }

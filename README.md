@@ -1,9 +1,13 @@
 # CodeWithYou.com - Everything about Web Development and Cloud Computing.
-## Last Updated: 2022-08-23
+## Last Updated: 2022-10-19
 
 
 Title | Published
 --- | ---
+[**API Ultimate Guide, Stateful vs Stateless. The Key Differences**](https://www.codewithyou.com/blog/api-stateful-vs-stateless)| 2022-10-19
+[**Finally, we can use fetch API in node.js**](https://www.codewithyou.com/blog/finally-we-can-use-fetch-api-in-nodejs)| 2022-10-11
+[**Publishing an npx command to npm.**](https://www.codewithyou.com/blog/publish-a-npx-command-)| 2022-10-04
+[**AWS API Gateway Access Logs. How to get them and what to do with them.**](https://www.codewithyou.com/blog/aws-api-gateway-access-logs)| 2022-09-26
 [**Using husky and git-secrets to prevent committing sensitive information to a git repository.**](https://www.codewithyou.com/blog/using-husky-and-gitsecrets-to-prevent-committing-passwords-and-other-sensitive-information-to-a-git-repository)| 2022-08-23
 [**CloudScape Design with NextJS**](https://www.codewithyou.com/blog/cloudscape-design-with-nextjs)| 2022-08-22
 [**Save text file from S3 using aws-sdk v3**](https://www.codewithyou.com/blog/save-file-from-s3-using-awssdk-v3)| 2022-08-09
