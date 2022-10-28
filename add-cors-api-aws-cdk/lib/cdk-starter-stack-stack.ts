@@ -18,12 +18,6 @@ export class CdkStarterStackStack extends Stack {
     const api = new RestApi(this, 'ApiGateway', {
       restApiName: 'ApiGateway',
       description: 'ApiGateway',
-      defaultCorsPreflightOptions: {
-        allowOrigins: ['*'],
-        allowMethods: ['*'],
-        allowHeaders: ['*'],
-        allowCredentials: true,
-      },
     });
 
     // 👇 add a resource with GET method for demo purposes
@@ -38,16 +32,16 @@ export class CdkStarterStackStack extends Stack {
             responseTemplates: {
               'application/json': '{"message": "Hello World!"}',
             },
-            // responseParameters: {
-            //   // 👇 allow CORS for all origins
-            //   'method.response.header.Access-Control-Allow-Origin': "'*'",
-            //   'method.response.header.Access-Control-Allow-Headers':
-            //     "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-            //   'method.response.header.Access-Control-Allow-Credentials':
-            //     "'true'",
-            //   'method.response.header.Access-Control-Allow-Methods':
-            //     "'OPTIONS,GET,PUT,POST,DELETE'",
-            // },
+            responseParameters: {
+              // 👇 allow CORS for all origins
+              'method.response.header.Access-Control-Allow-Origin': "'*'",
+              'method.response.header.Access-Control-Allow-Headers':
+                "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+              'method.response.header.Access-Control-Allow-Credentials':
+                "'true'",
+              'method.response.header.Access-Control-Allow-Methods':
+                "'OPTIONS,GET,PUT,POST,DELETE'",
+            },
           },
         ],
         requestTemplates: {
@@ -62,13 +56,13 @@ export class CdkStarterStackStack extends Stack {
             responseModels: {
               'application/json': Model.EMPTY_MODEL,
             },
-            // responseParameters: {
-            //   // 👇 allow CORS for all origins
-            //   'method.response.header.Access-Control-Allow-Origin': true,
-            //   'method.response.header.Access-Control-Allow-Headers': true,
-            //   'method.response.header.Access-Control-Allow-Credentials': true,
-            //   'method.response.header.Access-Control-Allow-Methods': true,
-            // },
+            responseParameters: {
+              // 👇 allow CORS for all origins
+              'method.response.header.Access-Control-Allow-Origin': true,
+              'method.response.header.Access-Control-Allow-Headers': true,
+              'method.response.header.Access-Control-Allow-Credentials': true,
+              'method.response.header.Access-Control-Allow-Methods': true,
+            },
           },
         ],
       }
