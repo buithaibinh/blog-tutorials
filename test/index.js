@@ -1,17 +1,21 @@
-const scrapeer = require('@sk-global/scrapeer');
+const libtidy = require('libtidy');
 
-// cheerio
-const cheerio = require('cheerio');
-const axios = require('axios');
+const fs = require('fs');
 
 (() => {
-  const url =
-  'https://www.city.fukuoka.lg.jp/hofuku/coronataisaku/health/jirei/cohs_.html';
-  axios.get(url).then((res) => {
-    const $ = cheerio.load(res.data);
-    const content = '.wb-contents';
-    const result = scrapeer.generateDescriptionFromDom($, {}, content);
+  const html = fs.readFileSync('./data/test.html', 'utf8');
 
-    console.log('result', result);
-  });
+  const htmlBuffer = Buffer.from(html);
+
+  var doc = libtidy.TidyDoc();
+  doc.options = {
+    forceOutput: true,
+    output_xhtml: false,
+  };
+  doc.parseBufferSync(htmlBuffer);
+
+  doc.cleanAndRepairSync();
+  const res = doc.saveBufferSync();
+
+  fs.writeFileSync('./data/result.html', res.toString());
 })();
