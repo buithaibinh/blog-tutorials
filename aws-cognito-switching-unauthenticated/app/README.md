@@ -1,28 +1,27 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 + Quasar 2.10 - Starter Template
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+We recommend to look at the [documentation](https://v3.nuxtjs.org).
+
+**Demo:** https://quasar-nuxt3-ssr.vercel.app/
+
+## Prerequisits
+
+- NodeJS 16.x
 
 ## Setup
 
-Make sure to install the dependencies:
+Make sure to install the dependencies
 
 ```bash
-# yarn
 yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
 ```
 
-## Development Server
+## Development
 
 Start the development server on http://localhost:3000
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 ## Production
@@ -30,13 +29,7 @@ npm run dev
 Build the application for production:
 
 ```bash
-npm run build
+yarn build
 ```
 
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
