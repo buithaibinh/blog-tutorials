@@ -370,6 +370,13 @@ cheerio@^1.0.0-rc.12:
     parse5 "^7.0.0"
     parse5-htmlparser2-tree-adapter "^7.0.0"
 
+chrono-node@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/chrono-node/-/chrono-node-2.4.2.tgz#3a2711d5d44e36a3a327499265dfb747f437ab07"
+  integrity sha512-M55ndjyorMF0ZapxcGiSPj98lmdWTMpRLP5dfQ99SSzYSxan6Sc5G4aIBgZkx2u7Tc+0msiSbeqOyEMCpwh//g==
+  dependencies:
+    dayjs "^1.10.0"
+
 clone-response@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/clone-response/-/clone-response-1.0.3.tgz#af2032aa47816399cf5f0a1d0db902f517abb8c3"
@@ -447,6 +454,11 @@ data-urls@^3.0.2:
     abab "^2.0.6"
     whatwg-mimetype "^3.0.0"
     whatwg-url "^11.0.0"
+
+dayjs@^1.10.0:
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.6.tgz#2e79a226314ec3ec904e3ee1dd5a4f5e5b1c7afb"
+  integrity sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==
 
 debug@4, debug@^4.1.0:
   version "4.3.4"

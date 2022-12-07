@@ -1,46 +1,14 @@
-import convertHtml from 'htmltiny';
-
-import { readFile, writeFile } from 'fs';
-
-import axios from 'axios';
-
-const loadHtmlFromUrl = async (url) => {
-  const res = await axios.get(url, {
-    insecureHTTPParser: false,
-  });
-  return res.data;
-};
-
-const loadHtmlFromFile = async (path) => {
-  return new Promise((resolve, reject) => {
-    readFile(path, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data.toString());
-      }
-    });
-  });
-};
-
-const saveHtmlToFile = async (path, html) => {
-  return new Promise((resolve, reject) => {
-    writeFile(path, html, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-};
+import * as chrono from 'chrono-node';
 
 (async () => {
   // const html = await loadHtmlFromFile('./data/test.html');
   // const res = await convertHtml(html);
   // await saveHtmlToFile('./data/result.html', res);
 
-  const html = await loadHtmlFromUrl('https://www.city.anjo.aichi.jp/event.xml');
+  let date = chrono.parseDate('2022-11-29T15:00:00JST');
 
-  console.log(html);
+  date = new Date(date).toISOString();
+
+  console.log("date", date);
+
 })();

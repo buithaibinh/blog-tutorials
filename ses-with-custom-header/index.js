@@ -2,12 +2,12 @@ import AWS from 'aws-sdk';
 const { SES } = AWS;
 
 // update the following variables with the values from your configuration
-AWS.config.update({ region: 'region' });
-const fromEmail = 'Info <from@example.com>';
-const to = 'to@yourdomain.com';
+AWS.config.update({ region: 'ap-southeast-1' });
+const fromEmail = 'info@sk-global.io';
+const to = 'univoicecrawl@sk-global.biz';
 
 // fixed a reference id for testing. Replace with your own topic reference id
-const TOPIC_REFERENCE = '<111111@example.com>';
+const TOPIC_REFERENCE = '<2222111111@example.com>';
 
 // Subject of the email, append the date to the subject. This make subject unique every time the email is sent
 const subject = `Test email from AWS SES!!! ${new Date()}`;

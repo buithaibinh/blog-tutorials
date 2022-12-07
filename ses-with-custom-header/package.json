@@ -6,5 +6,11 @@
   "type": "module",
   "dependencies": {
     "aws-sdk": "^2.1187.0"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
