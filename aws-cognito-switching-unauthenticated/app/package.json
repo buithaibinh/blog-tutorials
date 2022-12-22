@@ -14,8 +14,10 @@
     "node": "16"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^3.0.4",
     "@quasar/extras": "^1.15.5",
     "@vueuse/core": "^9.5.0",
+    "aws-amplify": "^5.0.5",
     "jsdom": "^20.0.2",
     "quasar": "^2.10.2"
   },

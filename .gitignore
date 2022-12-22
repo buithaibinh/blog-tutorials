@@ -20,3 +20,6 @@ yarn-error.log*
 # vercel
 .vercel
 .next
+
+# some project dont want to be public
+nestjs-lambda-cdk
