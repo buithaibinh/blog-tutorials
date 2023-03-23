@@ -1,0 +1,11 @@
+{
+  "name": "openai",
+  "version": "1.0.0",
+  "description": "openai testing",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "openai": "^3.1.0"
+  }
+}

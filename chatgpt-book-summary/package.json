@@ -1,0 +1,13 @@
+{
+  "name": "chatgpt-book-summary",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "dependencies": {
+    "openai": "^3.2.1",
+    "textract": "^2.5.0"
+  }
+}

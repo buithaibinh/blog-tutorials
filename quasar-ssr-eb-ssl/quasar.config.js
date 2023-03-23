@@ -74,7 +74,11 @@ module.exports = configure((/* ctx */) => ({
     // polyfillModulePreload: true,
     // distDir
 
-    // extendViteConf (viteConf) {},
+    extendViteConf(viteConf) {
+      Object.assign(viteConf.resolve.alias, {
+        './runtimeConfig': './runtimeConfig.browser',
+      })
+    },
     // viteVuePluginOptions: {},
 
     // vitePlugins: [

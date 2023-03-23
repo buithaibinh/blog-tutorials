@@ -74,7 +74,7 @@ export class WafStack extends Stack {
           },
           statement: {
             geoMatchStatement: {
-              countryCodes: ['US', 'VN'] // allow US and VN IP
+              countryCodes: ['US'] // allow US and VN IP
             }
           }
         },

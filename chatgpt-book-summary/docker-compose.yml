@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/usr/src/app/data
+    environment:
+      - NODE_ENV=production
+      - OPENAI_API_KEY=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
+    command: npm start
