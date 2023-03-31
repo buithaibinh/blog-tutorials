@@ -1,10 +1,4 @@
-FROM node:14
-
-# Install pdftotext
-RUN apt-get update && apt-get install -y poppler-utils
-
-# Install pdftotext and Japanese language support
-# RUN apt-get update && apt-get install -y poppler-utils fonts-ipafont fonts-ipaexfont fonts-mplus language-pack-ja
+FROM node:18-alpine
 
 # Create app directory
 WORKDIR /usr/src/app

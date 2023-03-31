@@ -7,7 +7,12 @@
     "start": "node index.mjs"
   },
   "dependencies": {
+    "dedent": "^0.7.0",
     "openai": "^3.2.1",
-    "textract": "^2.5.0"
+    "text-extractors": "^0.0.7"
+  },
+  "devDependencies": {
+    "@types/dedent": "^0.7.0",
+    "@types/node": "^18.15.11"
   }
 }
