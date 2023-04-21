@@ -6,6 +6,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "^8.7.0",
     "inquirer": "^9.1.5",
+    "jsonpath-plus": "^7.2.0",
     "ow": "^1.1.1",
     "papaparse": "^5.4.1"
   }

@@ -5,56 +5,9 @@ import Papa from 'papaparse';
 const HOST = 'http://localhost';
 const PORT = 9200;
 
-const parseMovies = () => {
-  const schema = fs.readFileSync('./schema/movie.json', 'utf8');
-  const csv = fs.readFileSync('./data/movies.csv', 'utf8');
-  const { data } = Papa.parse(csv, {
-    header: true
-  });
+import { JSONPath } from 'jsonpath-plus';
 
-  // modify data to match schema
-  const dataSet = data.map((item) => {
-    let year = item.title.match(/.*\((.*)\).*/) || [];
-    year = year[1] || '';
-    return {
-      ITEM_ID: item.movieId,
-      TITLE: item.title,
-      GENRES: item.genres.split('|'),
-      YEAR: year,
-      CREATION_TIMESTAMP: Date.now()
-    };
-  });
-
-  return {
-    schema,
-    data: dataSet
-  };
-};
-
-const parseRatings = () => {
-  const schema = fs.readFileSync('./schema/event.json', 'utf8');
-  const csv = fs.readFileSync('./data/ratings.csv', 'utf8');
-  const { data } = Papa.parse(csv, {
-    header: true
-  });
-
-  // modify data to match schema
-  const dataSet = data.map((item) => {
-    return {
-      ITEM_ID: item.movieId,
-      USER_ID: item.userId,
-      EVENT_TYPE: 'RATING',
-      TIMESTAMP: Date.now()
-    };
-  });
-
-  return {
-    schema,
-    data: dataSet
-  };
-};
-
-const parseUsers = () => {
+const generateUsers = () => {
   // if not exist user data, create it
   if (!fs.existsSync('./data/users.csv')) {
     console.log('Creating users data...');
@@ -78,19 +31,28 @@ const parseUsers = () => {
 
     fs.writeFileSync('./data/users.csv', Papa.unparse(users));
   }
+};
 
-  const schema = fs.readFileSync('./schema/user.json', 'utf8');
-  const csv = fs.readFileSync('./data/users.csv', 'utf8');
+const parse = (name, mapping = {}) => {
+  const schema = fs.readFileSync(`./schema/${name}.json`, 'utf8');
+  const csv = fs.readFileSync(`./data/${name}s.csv`, 'utf8');
   const { data } = Papa.parse(csv, {
     header: true
   });
 
   // modify data to match schema
   const dataSet = data.map((item) => {
-    return {
-      USER_ID: item.USER_ID,
-      GENDER: item.GENDER
-    };
+    const newItem = {};
+    Object.keys(mapping).forEach((key) => {
+      const path = mapping[key];
+      // if path is a function, execute it
+      if (typeof path === 'function') {
+        newItem[key] = path(item);
+        return;
+      }
+      newItem[key] = JSONPath({ path: mapping[key], json: item, wrap: false });
+    });
+    return newItem;
   });
 
   return {
@@ -100,19 +62,37 @@ const parseUsers = () => {
 };
 
 (async () => {
-  const resultSets = ['users', 'movies', 'ratings'];
+  const resultSets = ['movie', 'rating', 'user'];
 
   const jobs = resultSets.map(async (resultSet) => {
     let res;
     switch (resultSet) {
-      case 'users':
-        res = parseUsers();
+      case 'user':
+        generateUsers();
+        res = parse(resultSet, {
+          USER_ID: '$.USER_ID',
+          GENDER: '$.GENDER'
+        });
         break;
-      case 'movies':
-        res = parseMovies();
+      case 'movie':
+        res = parse(resultSet, {
+          ITEM_ID: '$.movieId',
+          TITLE: '$.title',
+          GENRES: '$.genres',
+          YEAR: (item) => {
+            const year = item.title.match(/.*\((.*)\).*/) || [];
+            return year[1] || '';
+          },
+          CREATION_TIMESTAMP: () => Date.now()
+        });
         break;
-      case 'ratings':
-        res = parseRatings();
+      case 'rating':
+        res = parse(resultSet, {
+          ITEM_ID: '$.movieId',
+          USER_ID: '$.userId',
+          EVENT_TYPE: () => 'RATING',
+          TIMESTAMP: () => Date.now()
+        });
         break;
       default:
         break;
