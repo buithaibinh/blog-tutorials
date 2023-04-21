@@ -4,7 +4,8 @@
   "fields": [
     {
       "name": "ITEM_ID",
-      "type": "text"
+      "type": "text",
+      "key": "True"
     },
     {
       "name": "TITLE",

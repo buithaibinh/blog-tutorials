@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "name": "Users",
+  "fields": [
+    {
+      "name": "USER_ID",
+      "type": "string",
+      "key": "True"
+    },
+    {
+      "name": "GENDER",
+      "type": "string",
+      "categorical": "True"
+    }
+  ],
+  "version": "1.0"
+}

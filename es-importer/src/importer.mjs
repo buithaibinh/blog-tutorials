@@ -25,6 +25,7 @@ export default class Importer {
           ow.object.exactShape({
             name: ow.string,
             type: ow.string,
+            key: ow.optional.string,
             categorical: ow.optional.string
           })
         ),
@@ -51,7 +52,9 @@ export default class Importer {
       }, {});
 
     // https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html#_core_datatypes
-    const indexName = this.schema.name;
+    const indexName = this.schema.name.toLowerCase();
+    const key = this.schema.fields.find((item) => item.key === 'True') || {};
+    const _id = key.name || '_id';
     await this.client.indices.create(
       {
         index: indexName,
@@ -63,7 +66,7 @@ export default class Importer {
     );
 
     const operations = this.data.flatMap((doc) => {
-      return [{ index: { _index: indexName, _id: doc.ITEM_ID } }, doc];
+      return [{ index: { _index: indexName, _id: doc[_id] } }, doc];
     });
 
     console.log(`Importing ${this.data.length} documents...`);
