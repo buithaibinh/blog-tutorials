@@ -15,6 +15,10 @@
       "type": "string"
     },
     {
+      "name": "EVENT_VALUE",
+      "type": "string"
+    },
+    {
       "name": "TIMESTAMP",
       "type": "long"
     }

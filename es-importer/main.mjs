@@ -91,6 +91,8 @@ const parse = (name, mapping = {}) => {
           ITEM_ID: '$.movieId',
           USER_ID: '$.userId',
           EVENT_TYPE: () => 'RATING',
+          // EVENT_VALUE: (item) => +item.rating,
+          EVENT_VALUE: '$.rating',
           TIMESTAMP: () => Date.now()
         });
         break;
