@@ -69,7 +69,7 @@ export default class Importer {
       return [{ index: { _index: indexName, _id: doc[_id] } }, doc];
     });
 
-    console.log(`Importing ${this.data.length} documents...`);
+    console.log(`Importing ${this.data.length} documents...to ${indexName}`);
 
     const bulkResponse = await this.client.bulk({ refresh: true, operations });
 

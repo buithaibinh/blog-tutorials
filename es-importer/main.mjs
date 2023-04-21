@@ -48,22 +48,6 @@ const parseRatings = () => {
     };
   });
 
-  // TODO, generate users.csv
-  // let userIds = data.map((item) => item.userId);
-  // userIds = [...new Set(userIds)];
-  // const possibleGenders = ['female', 'male'];
-  // const users = userIds
-  //   .filter((userId) => !!userId)
-  //   .map((userId) => {
-  //     return {
-  //       USER_ID: userId,
-  //       GENDER:
-  //         possibleGenders[Math.floor(Math.random() * possibleGenders.length)]
-  //     };
-  //   });
-
-  // fs.writeFileSync('./data/users.csv', Papa.unparse(users));
-
   return {
     schema,
     data: dataSet
@@ -71,6 +55,30 @@ const parseRatings = () => {
 };
 
 const parseUsers = () => {
+  // if not exist user data, create it
+  if (!fs.existsSync('./data/users.csv')) {
+    console.log('Creating users data...');
+    const ratingsCsv = fs.readFileSync('./data/ratings.csv', 'utf8');
+    const { data: ratings } = Papa.parse(ratingsCsv, {
+      header: true
+    });
+
+    let userIds = ratings.map((item) => item.userId);
+    userIds = [...new Set(userIds)];
+    const possibleGenders = ['female', 'male'];
+    const users = userIds
+      .filter((userId) => !!userId)
+      .map((userId) => {
+        return {
+          USER_ID: userId,
+          GENDER:
+            possibleGenders[Math.floor(Math.random() * possibleGenders.length)]
+        };
+      });
+
+    fs.writeFileSync('./data/users.csv', Papa.unparse(users));
+  }
+
   const schema = fs.readFileSync('./schema/user.json', 'utf8');
   const csv = fs.readFileSync('./data/users.csv', 'utf8');
   const { data } = Papa.parse(csv, {
