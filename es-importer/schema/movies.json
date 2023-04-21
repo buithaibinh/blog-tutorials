@@ -1,0 +1,30 @@
+{
+  "type": "record",
+  "name": "videos",
+  "fields": [
+    {
+      "name": "ITEM_ID",
+      "type": "text"
+    },
+    {
+      "name": "TITLE",
+      "type": "keyword",
+      "categorical": "True"
+    },
+    {
+      "name": "GENRES",
+      "type": "keyword",
+      "categorical": "True"
+    },
+    {
+      "name": "YEAR",
+      "type": "text",
+      "categorical": "True"
+    },
+    {
+      "name": "CREATION_TIMESTAMP",
+      "type": "long"
+    }
+  ],
+  "version": "1.0"
+}
