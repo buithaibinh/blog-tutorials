@@ -1,0 +1,25 @@
+version: 1
+# backend:
+#   phases:
+#     # IMPORTANT - Please verify your build commands
+#     build:
+#       commands:
+#         - '# Execute Amplify CLI with the helper script'
+#         - amplifyPush --simple
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - yarn global add @quasar/cli
+        - yarn install
+    build:
+      commands:
+        - if [ "${AWS_BRANCH}" = "dev" ]; then yarn run build; fi
+  artifacts:
+    # IMPORTANT - Please verify your build output directory
+    baseDirectory: /dist/spa
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*

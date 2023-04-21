@@ -1,0 +1,11 @@
+{
+  "name": "playwright-aws-lambda",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Binh Bui <buithaibinh@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "playwright": "^1.32.3"
+  }
+}

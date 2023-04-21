@@ -1,4 +1,4 @@
-import { Stack, StackProps, RemovalPolicy } from 'aws-cdk-lib';
+import { Stack, StackProps, RemovalPolicy, CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
@@ -94,6 +94,14 @@ export class CdkStarterStackStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY // NOT recommended for production code
     });
 
+    // create user pool client
+    const userPoolClient = new cognito.UserPoolClient(this, 'UserPoolClient', {
+      userPool,
+      authFlows: {
+        custom: true
+      }
+    });
+
     // ---- grant permissions to lambda functions ----
     // allow create auth challenge send mail
     fnCreateAuthChallenge.addToRolePolicy(
@@ -103,5 +111,19 @@ export class CdkStarterStackStack extends Stack {
         resources: ['*']
       })
     );
+
+    // ---- output ----
+    new CfnOutput(this, 'userPoolId', {
+      value: userPool.userPoolId
+    });
+
+    new CfnOutput(this, 'userPoolClientId', {
+      value: userPoolClient.userPoolClientId
+    });
+
+    // region
+    new CfnOutput(this, 'region', {
+      value: this.region
+    });
   }
 }

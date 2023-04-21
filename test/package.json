@@ -4,14 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/vision": "^3.1.3",
     "@sk-global/scrapeer": "^0.1.3",
     "@sk-global/text-extractor": "^0.1.0",
     "axios": "^1.1.3",
     "cheerio": "^1.0.0-rc.12",
     "chrono-node": "^2.4.2",
+    "fuse.js": "^6.6.2",
     "got-scraping": "^3.2.12",
     "htmltiny": "^0.1.0",
     "puppeteer": "^19.7.2",
+    "sqs-consumer": "^7.0.3",
     "string-similarity": "^4.0.4",
     "text-extractors": "^0.0.12"
   }
