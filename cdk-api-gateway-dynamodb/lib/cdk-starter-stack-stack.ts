@@ -73,7 +73,7 @@ export class CdkStarterStackStack extends Stack {
                 "id": {
                   "S": "$input.params('id')"
                 }
-              }
+              },
             }`,
           },
         },

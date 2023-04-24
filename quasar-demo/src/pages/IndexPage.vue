@@ -1,34 +1,87 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    />
+  <q-page padding>
+    <div class="col q-gutter-sm">
+      <q-input v-model="url" dense outlined>
+        <template #before>
+          <q-icon name="link" />
+        </template>
 
-    <q-btn color="primary" icon="check" label="OK" @click="onClick" />
+        <template #after>
+          <q-btn
+            flat
+            dense
+            label="Test API"
+            @click="onClick"
+            :loading="loading"
+          />
+        </template>
+      </q-input>
+      <div>
+        <div class="text-body1">Payload</div>
+        <JsonEditorVue
+          v-model="payload"
+          v-bind="{
+            /* local props & attrs */
+          }"
+        />
+      </div>
+
+      <div>
+        <div class="text-body1">Config</div>
+        <JsonEditorVue
+          v-model="config"
+          v-bind="{
+            /* local props & attrs */
+          }"
+        />
+      </div>
+    </div>
+
+    <q-separator spaced />
+    <div>
+      <div class="text-body1">Response</div>
+      <json-viewer :value="data" copyable :expand-depth="2" sort />
+    </div>
   </q-page>
 </template>
 
 <script setup>
 import { api } from 'boot/axios';
+import { ref } from 'vue';
+import JsonEditorVue from 'json-editor-vue';
+
+const loading = ref(false);
+const data = ref({});
+
+const url = ref(
+  'https://m4d0hygt0l.execute-api.ap-southeast-1.amazonaws.com/dev/wagyu'
+);
+
+const payload = ref({
+  id: '1251446067'
+});
+
+const config = ref({
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'gSdPL7nqLA7yG4QQRWui6727pg3pXSax6xaUAu2L'
+  }
+});
 
 const onClick = async () => {
-  console.log('OK');
-
-  const { data } = await api.post(
-    '/extractors/wagyu',
-    {
-      id: '125114460671'
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': 'zG2B29bbmfaKrRoOdJRoq3GpyCbZ4WkW7h8ujK64'
-      }
-    }
-  );
-
-  console.log(data);
+  loading.value = true;
+  data.value = {};
+  try {
+    const { data: response } = await api.post(
+      url.value,
+      JSON.stringify(payload.value),
+      config.value
+    );
+    data.value = response;
+  } catch (error) {
+    data.value = error;
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
