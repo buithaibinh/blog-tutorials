@@ -1,7 +1,7 @@
 {
-  "name": "quasar-demo",
+  "name": "api-playground",
   "version": "0.0.1",
-  "description": "A Quasar Project",
+  "description": "API Playground",
   "productName": "Quasar App",
   "author": "Binh Bui <binhbv@gmail.com>",
   "private": true,
