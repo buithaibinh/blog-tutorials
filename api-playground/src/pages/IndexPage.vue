@@ -64,7 +64,7 @@ const payload = ref({
 const config = ref({
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'gSdPL7nqLA7yG4QQRWui6727pg3pXSax6xaUAu2L'
+    'x-api-key': 'x'
   }
 });
 
