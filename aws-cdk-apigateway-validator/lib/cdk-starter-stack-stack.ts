@@ -35,8 +35,57 @@ export class CdkStarterStackStack extends Stack {
     });
 
     // Define a resource and method for your API using the addResource and addMethod methods.
-    const getMethod = restApi.root.addResource('resource').addResource('{id}');
+    const resource = restApi.root.addResource('resource');
 
+    // Define the request body schema using the requestModels property.
+    // For example, to require a JSON request body with a name field, set the requestModels property like this:
+    const requestBodySchema = new apigateway.Model(this, 'RequestBodySchema', {
+      restApi: restApi,
+      contentType: 'application/json',
+      schema: {
+        type: apigateway.JsonSchemaType.OBJECT,
+        properties: {
+          name: { type: apigateway.JsonSchemaType.STRING }
+        },
+        required: ['name']
+      }
+    });
+
+    const bodyValidator = new apigateway.RequestValidator(
+      this,
+      'BodyValidator',
+      {
+        restApi: restApi,
+        requestValidatorName: 'BodyValidator',
+        validateRequestBody: true,
+        validateRequestParameters: false
+      }
+    );
+
+    resource.addMethod(
+      'POST',
+      new apigateway.LambdaIntegration(myLambdaFunction),
+      {
+        // Enable request validation for the method by setting the requestValidatorOptions.validateRequestBody property to true.
+        // This will validate the request body against the requestBody property.
+        requestValidator: bodyValidator,
+        requestModels: {
+          'application/json': requestBodySchema
+        }
+      }
+    );
+
+    const getMethod = resource.addResource('{id}');
+    const queryStringValidator = new apigateway.RequestValidator(
+      this,
+      'RequestValidator',
+      {
+        restApi: restApi,
+        requestValidatorName: 'RequestValidator',
+        validateRequestBody: false,
+        validateRequestParameters: true
+      }
+    );
     // Define the request parameters you want to validate using the requestParameters property.
     getMethod.addMethod(
       'GET',
@@ -50,9 +99,7 @@ export class CdkStarterStackStack extends Stack {
 
         // Enable request validation for the method by setting the requestValidatorOptions.validateRequestParameters property to true.
         // This will validate the request parameters against the requestParameters property.
-        requestValidatorOptions: {
-          validateRequestParameters: true
-        }
+        requestValidator: queryStringValidator
       }
     );
   }
