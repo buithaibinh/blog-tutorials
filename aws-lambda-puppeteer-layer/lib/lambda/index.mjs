@@ -23,19 +23,23 @@ const handler = async (event) => {
     await uploadFile(key, Buffer.from(screenshot, 'base64'));
     const screenshotURL = await getS3Url(key);
 
+    console.log('screenshotURL', screenshotURL);
     return {
       statusCode: 200,
-      body: JSON.stringify({
+      body: {
         message: 'Success',
         url,
         screenshotURL: screenshotURL
-      })
+      }
     };
   } catch (error) {
     console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify(error)
+      body: {
+        message: 'Error',
+        error: error.message || "Can't take screenshot"
+      }
     };
   } finally {
     browser?.close();
