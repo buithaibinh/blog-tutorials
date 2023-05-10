@@ -69,7 +69,7 @@ function generateCircle(center, radius, { numberOfEdges = 32 }) {
 
 const run = async () => {
   // my current location
-  const center = [106.6721117, 10.7946879]; //[lat,lon]
+  const center = [106.6721117, 10.7946879]; //[lng, lat]
   const radius = 500; // in meters
   const options = { numberOfEdges: 64 }; //optional, defaults to { numberOfEdges: 32 }
 
