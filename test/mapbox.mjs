@@ -40,15 +40,28 @@ const run = async () => {
   //   console.log('Hello World');
 
   // my current location
-  const center = [106.6721117, 10.7946879, 16]; //[lon, lat]
+  const center = [106.6721117, 10.7946879]; //[lat,lon]
   const radius = 500; // in meters
   const options = { numberOfEdges: 64 }; //optional, defaults to { numberOfEdges: 32 }
 
-  //   const polygon = circleToPolygon(center, radius, options);
-  //   console.log(JSON.stringify(polygon, null, 2));
+  const polygon = circleToPolygon(center, radius, options);
 
-  const circle = generateCircle(center, radius);
-  console.log(JSON.stringify(circle, null, 2));
+  const geoJSON = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: polygon
+      }
+    ]
+  };
+
+  const data = fs.writeFileSync(
+    './data/map.geojson',
+    JSON.stringify(geoJSON, null, 2)
+  );
+
+  console.log(JSON.stringify(polygon, null, 2));
 };
 
 run();
