@@ -3,42 +3,36 @@ import geojsonvt from 'geojson-vt';
 
 import circleToPolygon from 'circle-to-polygon';
 
+/**
+ * This function is used to generate a circle polygon. It ported from https://github.dev/gabzim/circle-to-polygon#readme
+ * It is sample of code, need to be refactored
+ * @param {*} center
+ * @param {*} radius
+ * @param {*} param2
+ * @returns
+ */
 function generateCircle(center, radius, { numberOfEdges = 32 }) {
-  function offset(c1, distance, earthRadius, bearing) {
-    const lat1 = (c1[1] * Math.PI) / 180;
-    const lon1 = (c1[0] * Math.PI) / 180;
-    const dByR = distance / earthRadius;
-    const lat = Math.asin(
-      Math.sin(lat1) * Math.cos(dByR) +
-        Math.cos(lat1) * Math.sin(dByR) * Math.cos(bearing)
-    );
+  const dByR = radius / 6378137; // distance divided by the radius of the Earth in meters
+  const sinLat = Math.sin((center[1] * Math.PI) / 180);
+  const cosLat = Math.cos((center[1] * Math.PI) / 180);
+  const sinDByR = Math.sin(dByR);
+  const cosDByR = Math.cos(dByR);
+  const coordinates = [];
+
+  for (let i = 0; i < numberOfEdges; i++) {
+    const bearing = (2 * Math.PI * i) / numberOfEdges;
+    const sinBearing = Math.sin(bearing);
+    const cosBearing = Math.cos(bearing);
+    const lat = Math.asin(sinLat * cosDByR + cosLat * sinDByR * cosBearing);
     const lon =
-      lon1 +
+      (center[0] * Math.PI) / 180 +
       Math.atan2(
-        Math.sin(bearing) * Math.sin(dByR) * Math.cos(lat1),
-        Math.cos(dByR) - Math.sin(lat1) * Math.sin(lat)
+        sinBearing * sinDByR * cosLat,
+        cosDByR - sinLat * Math.sin(lat)
       );
-
-    return [(lon * 180) / Math.PI, (lat * 180) / Math.PI];
+    coordinates.push([lon * (180 / Math.PI), lat * (180 / Math.PI)]);
   }
 
-  const n = numberOfEdges;
-  const earthRadius = 6378137; // default earth radius assumed by WGS 84
-  const bearing = 0;
-  const direction = false;
-
-  const start = (bearing * Math.PI) / 180;
-  var coordinates = [];
-  for (var i = 0; i < n; ++i) {
-    coordinates.push(
-      offset(
-        center,
-        radius,
-        earthRadius,
-        start + (direction * 2 * Math.PI * -i) / n
-      )
-    );
-  }
   coordinates.push(coordinates[0]);
 
   return {
@@ -66,8 +60,8 @@ const run = async () => {
   const radius = 500; // in meters
   const options = { numberOfEdges: 64 }; //optional, defaults to { numberOfEdges: 32 }
 
-  const polygon = circleToPolygon(center, radius, options);
-//   const polygon = generateCircle(center, radius, options);
+  //   const polygon = circleToPolygon(center, radius, options);
+  const polygon = generateCircle(center, radius, options);
 
   const geoJSON = {
     type: 'FeatureCollection',
