@@ -3,6 +3,28 @@ import geojsonvt from 'geojson-vt';
 
 import circleToPolygon from 'circle-to-polygon';
 
+const _getTileInfo = (lat, lng, z) => {
+  const lng_rad = (lng * Math.PI) / 180;
+  const R = 128 / Math.PI;
+  const worldCoordX = R * (lng_rad + Math.PI);
+  const pixelCoordX = worldCoordX * Math.pow(2, z);
+  const tileCoordX = Math.floor(pixelCoordX / 256);
+
+  const lat_rad = (lat * Math.PI) / 180;
+  const worldCoordY =
+    (-R / 2) * Math.log((1 + Math.sin(lat_rad)) / (1 - Math.sin(lat_rad))) +
+    128;
+  const pixelCoordY = worldCoordY * Math.pow(2, z);
+  const tileCoordY = Math.floor(pixelCoordY / 256);
+
+  return {
+    x: tileCoordX,
+    y: tileCoordY,
+    pX: Math.floor(pixelCoordX - tileCoordX * 256),
+    pY: Math.floor(pixelCoordY - tileCoordY * 256)
+  };
+};
+
 /**
  * This function is used to generate a circle polygon. It ported from https://github.dev/gabzim/circle-to-polygon#readme
  * It is sample of code, need to be refactored
@@ -30,7 +52,11 @@ function generateCircle(center, radius, { numberOfEdges = 32 }) {
         sinBearing * sinDByR * cosLat,
         cosDByR - sinLat * Math.sin(lat)
       );
-    coordinates.push([lon * (180 / Math.PI), lat * (180 / Math.PI)]);
+
+    const lon180 = (lon * 180) / Math.PI;
+    const lat180 = (lat * 180) / Math.PI;
+
+    coordinates.push([lon180, lat180]);
   }
 
   coordinates.push(coordinates[0]);
@@ -42,19 +68,6 @@ function generateCircle(center, radius, { numberOfEdges = 32 }) {
 }
 
 const run = async () => {
-  //   const data = fs.readFileSync('./data/map.geojson', 'utf8');
-  //   const geoJSON = JSON.parse(data);
-  //   console.log(geoJSON);
-
-  //   // build an initial index of tiles
-  //   const tileIndex = geojsonvt(geoJSON, {
-  //     maxZoom: 14 // max zoom to preserve detail on; can't be higher than 24
-  //   });
-
-  //   console.log(tileIndex);
-
-  //   console.log('Hello World');
-
   // my current location
   const center = [106.6721117, 10.7946879]; //[lat,lon]
   const radius = 500; // in meters
