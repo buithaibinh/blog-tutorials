@@ -3,9 +3,14 @@
     <div class="col q-gutter-sm">
       <q-input v-model="url" dense outlined>
         <template #before>
-          <q-icon name="link" />
+          <q-select
+            v-model="method"
+            :options="methods"
+            dense
+            outlined
+            style="width: 100px"
+          />
         </template>
-
         <template #after>
           <q-btn
             flat
@@ -52,19 +57,25 @@ import JsonEditorVue from 'json-editor-vue';
 
 const loading = ref(false);
 const data = ref({});
+const method = ref('POST');
+
+const methods = ref(['POST', 'GET', 'PUT', 'DELETE']);
 
 const url = ref(
-  'https://m4d0hygt0l.execute-api.ap-southeast-1.amazonaws.com/dev/wagyu'
+  'https://jg7xfcg55g.execute-api.ap-southeast-1.amazonaws.com/dev/events'
 );
 
 const payload = ref({
-  id: '1251446067'
+  user_id: 'binhbv',
+  item_id: '111',
+  event_type: 'click',
+  event_value: '2222',
+  xx: 'xcxcsa'
 });
 
 const config = ref({
   headers: {
-    'Content-Type': 'application/json',
-    'x-api-key': 'x'
+    'Content-Type': 'application/json'
   }
 });
 
@@ -72,10 +83,15 @@ const onClick = async () => {
   loading.value = true;
   data.value = {};
   try {
-    const { data: response } = await api.post(
-      url.value,
-      JSON.stringify(payload.value),
-      config.value
+    const { data: response } = await api.request(
+      {
+        url: url.value,
+        method: method.value,
+        data: payload.value
+      },
+      {
+        headers: config.value.headers
+      }
     );
     data.value = response;
   } catch (error) {

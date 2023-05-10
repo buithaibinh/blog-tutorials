@@ -1,7 +1,6 @@
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 
 const s3 = new S3Client({ region: process.env.REGION });
-import { toBase64 } from '@aws-sdk/util-base64';
 
 const streamToBuffer = (stream) => {
   const chunks = [];
@@ -12,7 +11,7 @@ const streamToBuffer = (stream) => {
   });
 };
 
-export const handler = async (event, context) => {
+export const handler = async (event) => {
   const number = Math.random() > 0.5 ? 1 : 0;
   if (number) {
     // read s3 image as binary

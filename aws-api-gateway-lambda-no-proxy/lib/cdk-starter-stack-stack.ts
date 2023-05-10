@@ -20,36 +20,34 @@ export class CdkStarterStackStack extends Stack {
       handler: 'handler'
     });
 
-    const integration = new apigateway.LambdaIntegration(fn, {
-      proxy: false, // default is true, set to false to use the LambdaIntegration
-      // Ok, now we need to set the request template to use the LambdaIntegration
-      requestTemplates: {
-        'application/json': `
-          {
-            "name": "$input.params('name')",
-            "errorCode": "$input.params('errorCode')",
-            "sourceIp": "$context.identity.sourceIp"
-          }
-        `
-      },
-
-      // https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#util-template-reference
-      integrationResponses: [
-        {
-          statusCode: '200',
-          responseTemplates: {
-            'application/json': `
-            #set($inputRoot = $input.path('$'))
-            #set($data = $inputRoot.data)
+    const integration = new apigateway.Integration({
+      integrationHttpMethod: 'POST',
+      type: apigateway.IntegrationType.AWS,
+      uri: `arn:aws:apigateway:${this.region}:lambda:path/2015-03-31/functions/${fn.functionArn}/invocations`,
+      options: {
+        credentialsRole: fn.role,
+        requestParameters: {
+        },
+        requestTemplates: {
+          'application/json': `
             {
-              "message": "$input.path('$.errorMessage')",
-              "sourceIp": "$context.identity.sourceIp"
+              "greeter": "$util.escapeJavaScript($input.params('greeter'))"
             }
-            `
+          `
+        },
+        integrationResponses: [
+          {
+            statusCode: '200',
+            responseTemplates: {
+              'application/json': `
+                {
+                  "message": "Hello, \$input.params('greeter')"
+                }
+              `,
+            }
           }
-        }
-      ],
-      passthroughBehavior: apigateway.PassthroughBehavior.WHEN_NO_MATCH
+        ]
+      }
     });
 
     const resource = restApi.root.addResource('hello');
@@ -57,7 +55,7 @@ export class CdkStarterStackStack extends Stack {
       methodResponses: [
         {
           statusCode: '200'
-        }
+        },
       ]
     });
   }
