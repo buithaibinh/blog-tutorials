@@ -3,25 +3,47 @@ import geojsonvt from 'geojson-vt';
 
 import circleToPolygon from 'circle-to-polygon';
 
-function generateCircle(center, radius, numPoints = 64) {
-  const coords = [];
-  for (let i = 0; i < numPoints; i++) {
-    const angle = (Math.PI * 2 * i) / numPoints;
-    const dx = radius * Math.cos(angle);
-    const dy = radius * Math.sin(angle);
-    const lon = center[0] + dx / Math.cos((center[1] * Math.PI) / 180);
-    let lat = center[1] + dy / 111319.9;
-    lat = Math.max(Math.min(lat, 90), -90); // Ensure latitude is within valid range
-    coords.push([lon, lat]);
+function generateCircle(center, radius, { numberOfEdges = 32 }) {
+  function offset(c1, distance, earthRadius, bearing) {
+    const lat1 = (c1[1] * Math.PI) / 180;
+    const lon1 = (c1[0] * Math.PI) / 180;
+    const dByR = distance / earthRadius;
+    const lat = Math.asin(
+      Math.sin(lat1) * Math.cos(dByR) +
+        Math.cos(lat1) * Math.sin(dByR) * Math.cos(bearing)
+    );
+    const lon =
+      lon1 +
+      Math.atan2(
+        Math.sin(bearing) * Math.sin(dByR) * Math.cos(lat1),
+        Math.cos(dByR) - Math.sin(lat1) * Math.sin(lat)
+      );
+
+    return [(lon * 180) / Math.PI, (lat * 180) / Math.PI];
   }
-  coords.push(coords[0]); // close the polygon
+
+  const n = numberOfEdges;
+  const earthRadius = 6378137; // default earth radius assumed by WGS 84
+  const bearing = 0;
+  const direction = false;
+
+  const start = (bearing * Math.PI) / 180;
+  var coordinates = [];
+  for (var i = 0; i < n; ++i) {
+    coordinates.push(
+      offset(
+        center,
+        radius,
+        earthRadius,
+        start + (direction * 2 * Math.PI * -i) / n
+      )
+    );
+  }
+  coordinates.push(coordinates[0]);
+
   return {
-    type: 'Feature',
-    geometry: {
-      type: 'Polygon',
-      coordinates: [coords]
-    },
-    properties: {}
+    type: 'Polygon',
+    coordinates: [coordinates]
   };
 }
 
@@ -45,13 +67,24 @@ const run = async () => {
   const options = { numberOfEdges: 64 }; //optional, defaults to { numberOfEdges: 32 }
 
   const polygon = circleToPolygon(center, radius, options);
+//   const polygon = generateCircle(center, radius, options);
 
   const geoJSON = {
     type: 'FeatureCollection',
     features: [
       {
         type: 'Feature',
-        geometry: polygon
+        geometry: polygon,
+        properties: {}
+      },
+      {
+        // my current location
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: center
+        },
+        properties: {}
       }
     ]
   };

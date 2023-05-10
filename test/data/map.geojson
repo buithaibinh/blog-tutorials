@@ -269,7 +269,19 @@
             ]
           ]
         ]
-      }
+      },
+      "properties": {}
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6721117,
+          10.7946879
+        ]
+      },
+      "properties": {}
     }
   ]
 }
