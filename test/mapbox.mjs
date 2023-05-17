@@ -1,7 +1,12 @@
+import * as turf from '@turf/turf';
 import fs from 'fs';
-import geojsonvt from 'geojson-vt';
 
-import circleToPolygon from 'circle-to-polygon';
+const _makeUrl = (url, tileInfo) => {
+  var result = url.url.replace('{x}', tileInfo.x);
+  result = result.replace('{y}', tileInfo.y);
+  result = result.replace('{z}', url.zoom);
+  return result;
+};
 
 const _getTileInfo = (lat, lng, z) => {
   const lng_rad = (lng * Math.PI) / 180;
@@ -25,83 +30,133 @@ const _getTileInfo = (lat, lng, z) => {
   };
 };
 
-/**
- * This function is used to generate a circle polygon. It ported from https://github.dev/gabzim/circle-to-polygon#readme
- * It is sample of code, need to be refactored
- * @param {*} center
- * @param {*} radius
- * @param {*} param2
- * @returns
- */
-function generateCircle(center, radius, { numberOfEdges = 32 }) {
-  const dByR = radius / 6378137; // distance divided by the radius of the Earth in meters
-  const sinLat = Math.sin((center[1] * Math.PI) / 180);
-  const cosLat = Math.cos((center[1] * Math.PI) / 180);
-  const sinDByR = Math.sin(dByR);
-  const cosDByR = Math.cos(dByR);
-  const coordinates = [];
+const bearingToDirection = (bearing) => {
+  // If the bearing is between 0 and 22.5 degrees or between 337.5 and 360 degrees, the direction is "North".
+  // If the bearing is between 22.5 and 67.5 degrees, the direction is "Northeast".
+  // If the bearing is between 67.5 and 112.5 degrees, the direction is "East".
+  // If the bearing is between 112.5 and 157.5 degrees, the direction is "Southeast".
+  // If the bearing is between 157.5 and 202.5 degrees, the direction is "South".
+  // If the bearing is between 202.5 and 247.5 degrees, the direction is "Southwest".
+  // If the bearing is between 247.5 and 292.5 degrees, the direction is "West".
+  // If the bearing is between 292.5 and 337.5 degrees, the direction is "Northwest".
 
-  for (let i = 0; i < numberOfEdges; i++) {
-    const bearing = (2 * Math.PI * i) / numberOfEdges;
-    const sinBearing = Math.sin(bearing);
-    const cosBearing = Math.cos(bearing);
-    const lat = Math.asin(sinLat * cosDByR + cosLat * sinDByR * cosBearing);
-    const lon =
-      (center[0] * Math.PI) / 180 +
-      Math.atan2(
-        sinBearing * sinDByR * cosLat,
-        cosDByR - sinLat * Math.sin(lat)
-      );
+  const directions = [
+    'North',
+    'Northeast',
+    'East',
+    'Southeast',
+    'South',
+    'Southwest',
+    'West',
+    'Northwest'
+  ];
+  const index = Math.round(bearing / 45) % 8;
+  return directions[index];
+};
 
-    const lon180 = (lon * 180) / Math.PI;
-    const lat180 = (lat * 180) / Math.PI;
-
-    coordinates.push([lon180, lat180]);
-  }
-
-  coordinates.push(coordinates[0]);
-
-  return {
-    type: 'Polygon',
-    coordinates: [coordinates]
-  };
-}
+const calculateBearing = (point1, point2) => {
+  const bearing = turf.bearing(point1, point2);
+  return bearing < 0 ? bearing + 360 : bearing;
+};
 
 const run = async () => {
-  // my current location
-  const center = [106.6721117, 10.7946879]; //[lng, lat]
-  const radius = 500; // in meters
-  const options = { numberOfEdges: 64 }; //optional, defaults to { numberOfEdges: 32 }
+  console.time('run');
+  // my current location, fake to Tokyo station
+  const myLatLng = [139.76711519040336, 35.68136418921732];
+  const myLocation = turf.point(myLatLng, {
+    'marker-color': '#b26666',
+    'marker-size': 'medium'
+  }); //[lng, lat]
 
-  //   const polygon = circleToPolygon(center, radius, options);
-  const polygon = generateCircle(center, radius, options);
+  // near my current location, fake to Palace Hotel Tokyo
+  const target = turf.point([139.76129711582556, 35.684691980933465]);
+  // bearing from my curren10.797566792888107, 106.67249316749793t location to CityHouse -  Emerald Apartment
+  const bearing = calculateBearing(target, myLocation);
+  target.properties.bearing = bearing;
+
+  // distance from my current location to CityHouse -  Emerald Apartment
+  const distance = turf.distance(myLocation, target, {
+    units: 'meters'
+  });
+
+  const direction = bearingToDirection(bearing);
+  console.log(direction, distance);
+
+  // circle around my current location
+  const radius = 500; // in meters
+  const options = {
+    steps: 64,
+    units: 'metres',
+    properties: { foo: 'bar' }
+  };
+  const circle = turf.circle(myLocation, radius, options);
+
+  // calc area of circle
+  const area = turf.area(circle);
+  // Returns number area in square meters
+  console.log(Math.round(area));
+
+  // get tile info of my current location
+  const zoom = 17;
+  const tileInfo = _getTileInfo(myLatLng[1], myLatLng[0], zoom);
+
+  // build flood url
+  const url = _makeUrl(
+    {
+      url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin_data/{z}/{x}/{y}.png',
+      zoom
+    },
+    tileInfo
+  );
+  console.log(url);
+
+  // --------
+  const bbox = turf.bbox(circle);
+  // every 50 meters
+  const cellSize = 50; // in meters
+  const grid = turf.squareGrid(bbox, cellSize, { units: 'meters' });
+
+  console.log('Generate grid: ', grid.features.length, 'squares');
+
+  // find all squares inside circle
+  const squaresInsideCircle = grid.features.filter((square) => {
+    const overlap = turf.booleanOverlap(circle, square);
+    return overlap || turf.booleanContains(circle, square);
+  });
+
+  const centerPoints = squaresInsideCircle.map((square) => {
+    // const randomPoints = turf.randomPoint(4, { bbox: turf.bbox(square) });
+    const center = turf.center(square);
+    const isInside = turf.booleanPointInPolygon(center, circle);
+    if (!isInside) {
+      center.properties = {
+        'marker-color': '#FF0000'
+      };
+    }
+    return center;
+  });
+  // .filter((center) => {
+  //   return turf.booleanPointInPolygon(center, circle);
+  // });
+
+  console.log('Gen total points: ', centerPoints.length);
 
   const geoJSON = {
     type: 'FeatureCollection',
     features: [
-      {
-        type: 'Feature',
-        geometry: polygon,
-        properties: {}
-      },
-      {
-        // my current location
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: center
-        },
-        properties: {}
-      }
+      circle,
+      myLocation,
+      target,
+      turf.lineString([myLatLng, target.geometry.coordinates], {
+        stroke: '#FF0000' // red
+      }),
+      ...squaresInsideCircle,
+      ...centerPoints
     ]
   };
 
-  const data = fs.writeFileSync(
-    './data/map.geojson',
-    JSON.stringify(geoJSON, null, 2)
-  );
-
-  console.log(JSON.stringify(polygon, null, 2));
+  console.timeEnd('run');
+  fs.writeFileSync('./data/map.geojson', JSON.stringify(geoJSON, null, 2));
 };
 
 run();

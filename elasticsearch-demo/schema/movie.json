@@ -9,7 +9,7 @@
     },
     {
       "name": "TITLE",
-      "type": "keyword",
+      "type": "autocomplete",
       "categorical": "True"
     },
     {
