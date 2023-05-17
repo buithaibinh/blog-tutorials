@@ -24,3 +24,4 @@ yarn-error.log*
 # some project dont want to be public
 nestjs-lambda-cdk
 puppeteer-lamba/docker/dist
+elasticsearch-demo/elasticsearch

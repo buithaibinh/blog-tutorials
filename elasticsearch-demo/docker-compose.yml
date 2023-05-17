@@ -6,10 +6,21 @@ services:
     environment:
       - xpack.security.enabled=false
       - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/plugins:/usr/share/elasticsearch/plugins
     networks:
       - es-net
     ports:
       - 9200:9200
+    command: >
+      bash -c '
+      elasticsearch-plugin install analysis-icu;
+      elasticsearch-plugin install analysis-kuromoji;
+      chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/plugins/;
+      /usr/local/bin/docker-entrypoint.sh
+      '
   kibana:
     container_name: kb-container
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}

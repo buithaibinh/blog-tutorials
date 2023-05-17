@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Autocomplete</title>
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Autocomplete</h1>
+      <div class="autocomplete">
+        <input type="text" id="myInput" placeholder="Search..." />
+      </div>
+    </div>
+
+    <!-- Display Result list -->
+    <div id="myUL"></div>
+
+    <script>
+      function search(filter) {
+        // call elastic search api
+        fetch('http://localhost:9200/jp-autocomplete/_search?q=' + filter)
+          .then(function(response) {
+            console.log(response);
+            return response.json();
+          })
+          .then(function(myJson) {
+            // get result list
+            var list = myJson.hits.hits;
+
+            // get result list length
+            var length = list.length;
+
+            // get result list container
+            var ul = document.getElementById('myUL');
+
+            // clear result list
+            ul.innerHTML = '';
+
+            // loop through result list
+            for (var i = 0; i < length; i++) {
+              // get result list item
+              var li = document.createElement('li');
+
+              // get result list item text
+              var text = document.createTextNode(list[i]._source.name);
+
+              // append text to result list item
+              li.appendChild(text);
+
+              // append result list item to result list
+              ul.appendChild(li);
+            }
+          });
+      }
+
+      // handle user input
+      function myFunction() {
+        // get user input
+        var input = document.getElementById('myInput');
+        // get value of user input
+        var filter = input.value;
+
+        // call search function
+        search(filter);
+      }
+
+      // add event listener to user input
+      document.getElementById('myInput').addEventListener('keyup', myFunction);
+    </script>
+  </body>
+</html>
