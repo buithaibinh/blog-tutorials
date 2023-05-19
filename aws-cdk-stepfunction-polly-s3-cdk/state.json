@@ -1,0 +1,270 @@
+{
+  "Comment": "State Machine Definition to start and stop RDS DB instances",
+  "StartAt": "Describe DBInstances to Start",
+  "States": {
+    "Describe DBInstances to Start": {
+      "Type": "Task",
+      "Parameters": {},
+      "Resource": "arn:aws:states:::aws-sdk:rds:describeDBInstances",
+      "Next": "Iterate on Instances to Start",
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Rds.InternalFailure",
+            "Rds.ServiceUnavailable",
+            "Rds.ThrottlingException",
+            "Rds.SdkClientException"
+          ],
+          "BackoffRate": 2,
+          "IntervalSeconds": 1,
+          "MaxAttempts": 2
+        }
+      ]
+    },
+    "Iterate on Instances to Start": {
+      "Type": "Map",
+      "ItemProcessor": {
+        "ProcessorConfig": {
+          "Mode": "INLINE"
+        },
+        "StartAt": "Format Array before Start",
+        "States": {
+          "Format Array before Start": {
+            "Type": "Pass",
+            "Next": "Check If Instance stopped, if no Tags or if Tags contains 'autostart=yes'",
+            "Parameters": {
+              "DbInstanceStatus.$": "$.DBInstance.DbInstanceStatus",
+              "DbInstanceIdentifier.$": "$.DBInstance.DbInstanceIdentifier",
+              "TagList.$": "$.DBInstance.TagList",
+              "TagsArrayLength.$": "States.ArrayLength($.DBInstance.TagList)",
+              "TagContainsKey.$": "States.ArrayContains($.DBInstance.TagList,$.LookingFor)"
+            }
+          },
+          "Check If Instance stopped, if no Tags or if Tags contains 'autostart=yes'": {
+            "Type": "Choice",
+            "Choices": [
+              {
+                "Not": {
+                  "Variable": "$.DbInstanceStatus",
+                  "StringEquals": "stopped"
+                },
+                "Next": "Instance is not in 'stopped' status"
+              },
+              {
+                "Variable": "$.TagsArrayLength",
+                "NumericEquals": 0,
+                "Next": "No Tags found to Start"
+              },
+              {
+                "Variable": "$.TagContainsKey",
+                "BooleanEquals": true,
+                "Next": "Tags found Start DBInstance"
+              }
+            ],
+            "Default": "No Tags found to Start"
+          },
+          "Tags found Start DBInstance": {
+            "Type": "Task",
+            "Parameters": {
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            },
+            "Resource": "arn:aws:states:::aws-sdk:rds:startDBInstance",
+            "Retry": [
+              {
+                "ErrorEquals": [
+                  "Rds.InternalFailure",
+                  "Rds.ServiceUnavailable",
+                  "Rds.ThrottlingException",
+                  "Rds.SdkClientException"
+                ],
+                "BackoffRate": 2,
+                "IntervalSeconds": 1,
+                "MaxAttempts": 2
+              }
+            ],
+            "Catch": [
+              {
+                "ErrorEquals": ["States.ALL"],
+                "Next": "Failed to Start DBInstance"
+              }
+            ],
+            "ResultSelector": {
+              "message": "Instance Started",
+              "DbInstanceIdentifier.$": "$.DbInstance.DbInstanceIdentifier"
+            },
+            "End": true
+          },
+          "Failed to Start DBInstance": {
+            "Type": "Pass",
+            "Parameters": {
+              "message": "Failed to start instance",
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            },
+            "End": true
+          },
+          "No Tags found to Start": {
+            "Type": "Pass",
+            "End": true,
+            "Parameters": {
+              "message": "No Tags found to Start",
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            }
+          },
+          "Instance is not in 'stopped' status": {
+            "Type": "Pass",
+            "End": true,
+            "Parameters": {
+              "message": "Instance is not in 'stopped' status",
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            }
+          }
+        }
+      },
+      "InputPath": "$.DbInstances",
+      "Next": "Wait for 1 hour and 30 minutes",
+      "ItemSelector": {
+        "LookingFor": {
+          "Key": "autostart",
+          "Value": "yes"
+        },
+        "DBInstance.$": "$$.Map.Item.Value"
+      }
+    },
+    "Wait for 1 hour and 30 minutes": {
+      "Type": "Wait",
+      "Seconds": 5400,
+      "Next": "Describe DBInstances to Stop"
+    },
+    "Describe DBInstances to Stop": {
+      "Type": "Task",
+      "Parameters": {},
+      "Resource": "arn:aws:states:::aws-sdk:rds:describeDBInstances",
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Rds.InternalFailure",
+            "Rds.ServiceUnavailable",
+            "Rds.ThrottlingException",
+            "Rds.SdkClientException"
+          ],
+          "BackoffRate": 2,
+          "IntervalSeconds": 1,
+          "MaxAttempts": 2
+        }
+      ],
+      "Next": "Iterate on Instances to Stop"
+    },
+    "Iterate on Instances to Stop": {
+      "Type": "Map",
+      "ItemProcessor": {
+        "ProcessorConfig": {
+          "Mode": "INLINE"
+        },
+        "StartAt": "Format Array before Stop",
+        "States": {
+          "Format Array before Stop": {
+            "Type": "Pass",
+            "Next": "Check If Instance available, if no Tags or if Tags contains 'autostop=yes'",
+            "Parameters": {
+              "DbInstanceStatus.$": "$.DBInstance.DbInstanceStatus",
+              "DbInstanceIdentifier.$": "$.DBInstance.DbInstanceIdentifier",
+              "TagList.$": "$.DBInstance.TagList",
+              "TagsArrayLength.$": "States.ArrayLength($.DBInstance.TagList)",
+              "TagContainsKey.$": "States.ArrayContains($.DBInstance.TagList,$.LookingFor)"
+            }
+          },
+          "Check If Instance available, if no Tags or if Tags contains 'autostop=yes'": {
+            "Type": "Choice",
+            "Choices": [
+              {
+                "Not": {
+                  "Variable": "$.DbInstanceStatus",
+                  "StringEquals": "available"
+                },
+                "Next": "Instance is not in 'available' status"
+              },
+              {
+                "Variable": "$.TagsArrayLength",
+                "NumericEquals": 0,
+                "Next": "No Tags found to Stop"
+              },
+              {
+                "Variable": "$.TagContainsKey",
+                "BooleanEquals": true,
+                "Next": "Tags found Stop DBInstance"
+              }
+            ],
+            "Default": "No Tags found to Stop"
+          },
+          "Tags found Stop DBInstance": {
+            "Type": "Task",
+            "Parameters": {
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            },
+            "Resource": "arn:aws:states:::aws-sdk:rds:stopDBInstance",
+            "Retry": [
+              {
+                "ErrorEquals": [
+                  "Rds.InternalFailure",
+                  "Rds.ServiceUnavailable",
+                  "Rds.ThrottlingException",
+                  "Rds.SdkClientException"
+                ],
+                "BackoffRate": 2,
+                "IntervalSeconds": 1,
+                "MaxAttempts": 2
+              }
+            ],
+            "Catch": [
+              {
+                "ErrorEquals": ["States.ALL"],
+                "Next": "Failed to Stop DBInstance"
+              }
+            ],
+            "ResultSelector": {
+              "message": "Instance Stopped",
+              "DbInstanceIdentifier.$": "$.DbInstance.DbInstanceIdentifier"
+            },
+            "End": true
+          },
+          "Failed to Stop DBInstance": {
+            "Type": "Pass",
+            "Parameters": {
+              "message": "Failed to stop instance",
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            },
+            "End": true
+          },
+          "No Tags found to Stop": {
+            "Type": "Pass",
+            "End": true,
+            "Parameters": {
+              "message": "No Tags found to Stop",
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            }
+          },
+          "Instance is not in 'available' status": {
+            "Type": "Pass",
+            "End": true,
+            "Parameters": {
+              "message": "Instance is not in 'available' status",
+              "DbInstanceIdentifier.$": "$.DbInstanceIdentifier"
+            }
+          }
+        }
+      },
+      "InputPath": "$.DbInstances",
+      "Next": "Workflow Finished",
+      "ItemSelector": {
+        "LookingFor": {
+          "Key": "autostop",
+          "Value": "yes"
+        },
+        "DBInstance.$": "$$.Map.Item.Value"
+      }
+    },
+    "Workflow Finished": {
+      "Type": "Succeed"
+    }
+  }
+}
