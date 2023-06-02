@@ -12,7 +12,7 @@
     "email": "buithaibinh@gmail.com"
   },
   "scripts": {
-    "dev": "docker-compose up -d"
+    "import:data": "node ./main.mjs"
   },
   "license": "MIT",
   "dependencies": {

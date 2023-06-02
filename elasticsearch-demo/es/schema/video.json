@@ -1,0 +1,66 @@
+{
+  "type": "record",
+  "name": "videos",
+  "fields": [
+    {
+      "name": "id",
+      "key": "True"
+    },
+    {
+      "name": "title",
+      "type": "keyword",
+      "categorical": "True",
+      "fields": {
+        "suggest": {
+          "type": "text",
+          "search_analyzer": "suggest_search_analyzer",
+          "analyzer": "suggest_index_analyzer"
+        },
+        "readingform": {
+          "type": "text",
+          "search_analyzer": "readingform_search_analyzer",
+          "analyzer": "readingform_index_analyzer"
+        }
+      }
+    },
+    {
+      "name": "description",
+      "type": "keyword",
+      "categorical": "True",
+      "fields": {
+        "suggest": {
+          "type": "text",
+          "search_analyzer": "suggest_search_analyzer",
+          "analyzer": "suggest_index_analyzer"
+        },
+        "readingform": {
+          "type": "text",
+          "search_analyzer": "readingform_search_analyzer",
+          "analyzer": "readingform_index_analyzer"
+        }
+      }
+    },
+    {
+      "name": "tags",
+      "type": "keyword",
+      "categorical": "True",
+      "fields": {
+        "suggest": {
+          "type": "text",
+          "search_analyzer": "suggest_search_analyzer",
+          "analyzer": "suggest_index_analyzer"
+        },
+        "readingform": {
+          "type": "text",
+          "search_analyzer": "readingform_search_analyzer",
+          "analyzer": "readingform_index_analyzer"
+        }
+      }
+    },
+    {
+      "name": "CREATION_TIMESTAMP",
+      "type": "long"
+    }
+  ],
+  "version": "1.0"
+}

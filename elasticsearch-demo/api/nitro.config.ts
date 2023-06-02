@@ -5,6 +5,12 @@ export default defineNitroConfig({
     db: {
       driver: 'fs',
       base: './data/db'
-    }
+    },
+  },
+  srcDir: 'src/',
+  rootDir: '.',
+  alias: {
+    '@': '~',
+    '@helper': '~/helper',
   }
 });

@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - ELASTICSEARCH_HOST=http://es-container:9200
+      - ELASTICSEARCH_INDEX=videos
     networks:
       - es-net
     depends_on:

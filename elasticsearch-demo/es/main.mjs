@@ -62,11 +62,19 @@ const parse = (name, mapping = {}) => {
 };
 
 (async () => {
-  const resultSets = ['movie', 'rating', 'user'];
+  const resultSets = ['video'];
 
   const jobs = resultSets.map(async (resultSet) => {
     let res;
     switch (resultSet) {
+      case 'video':
+        res = parse(resultSet, {
+          id: '$.id',
+          title: '$.title',
+          description: '$.content',
+          tags: '$.tags',
+        });
+        break;
       case 'user':
         generateUsers();
         res = parse(resultSet, {
@@ -102,6 +110,7 @@ const parse = (name, mapping = {}) => {
 
     if (res) {
       const { schema, data } = res;
+      fs.writeFileSync(`./output/${resultSet}.json`, JSON.stringify(data, null, 2));
       const importer = new Importer({
         host: HOST,
         port: PORT,
