@@ -1,22 +1,11 @@
 {
   "name": "elasticsearch-demo",
-  "description": "This repository contains the code for demoing the ElasticSearch",
   "version": "1.0.0",
   "main": "index.js",
-  "keywords": [
-    "elasticsearch",
-    "demo"
-  ],
-  "author": {
-    "name": "Binh Bui",
-    "email": "buithaibinh@gmail.com"
-  },
   "license": "MIT",
-  "dependencies": {
-    "@elastic/elasticsearch": "^8.7.0",
-    "inquirer": "^9.1.5",
-    "jsonpath-plus": "^7.2.0",
-    "ow": "^1.1.1",
-    "papaparse": "^5.4.1"
+  "scripts": {
+    "start": "node server.js",
+    "dev": "docker-compose up -d --build",
+    "stop": "docker-compose down"
   }
 }

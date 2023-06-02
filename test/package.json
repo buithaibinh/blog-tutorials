@@ -18,6 +18,7 @@
     "got-scraping": "^3.2.12",
     "htmltiny": "^0.1.0",
     "puppeteer": "^19.7.2",
+    "rc9": "^2.1.0",
     "sqs-consumer": "^7.0.3",
     "string-similarity": "^4.0.4",
     "text-extractors": "^0.0.12"
