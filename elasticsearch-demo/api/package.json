@@ -6,6 +6,7 @@
     "preview": "node .output/server/index.mjs"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^8.8.0",
     "nitropack": "latest"
   }
 }

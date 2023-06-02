@@ -18,6 +18,8 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
+    volumes:
+      - ./data:/usr/src/app/data
 
   elasticsearch:
     container_name: es-container

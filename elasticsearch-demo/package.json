@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "dev": "docker-compose up -d --build",
+    "dev": "docker-compose up",
     "stop": "docker-compose down"
   }
 }
