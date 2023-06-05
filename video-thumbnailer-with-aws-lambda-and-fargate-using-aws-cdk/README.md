@@ -328,7 +328,7 @@ export const onNewThumbnailHandler = async (event: S3Event) => {
 
 ## Deploy the application
 
-Preview and deploy changes via `cdk up`, which will take a few minutes.
+Preview and deploy changes via `cdk deploy`, which will take a few minutes.
 
 ```bash
 cdk deploy

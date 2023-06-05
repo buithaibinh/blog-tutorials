@@ -1,9 +1,27 @@
 # CodeWithYou.com - Everything about Web Development and Cloud Computing.
-## Last Updated: 2022-10-19
+## Last Updated: 2023-06-05
 
 
 Title | Published
 --- | ---
+[**Deploying a Web Server to AWS EC2 with AWS CDK. Step-by-step.**](https://www.codewithyou.com/blog/deploying-a-web-server-to-aws-ec2-with-aws-cdk)| 2023-06-05
+[**Optimizing Application Security. A Guide to Using cdk_nag with AWS CDK**](https://www.codewithyou.com/blog/managee-application-security-with-aws-cdk-and-cdknag)| 2023-05-22
+[**Implementing Autocomplete with Elasticsearch and Node.js**](https://www.codewithyou.com/blog/implementing-autocomplete-with-elasticsearch-and-nodejs)| 2023-05-20
+[**Changing Field Types in Elasticsearch**](https://www.codewithyou.com/blog/changing-field-types-in-elasticsearch-a-stepbystep-guide)| 2023-05-16
+[**Validating Request Parameters and Body in Amazon API Gateway with AWS CDK**](https://www.codewithyou.com/blog/validating-request-parameters-and-body-in-amazon-api-gateway-with-aws-cdk)| 2023-04-25
+[**Using AWS S3 for Web Hosting - Benefits and Limitations**](https://www.codewithyou.com/blog/using-aws-s3-for-web-hosting-benefits-and-limitations)| 2023-03-31
+[**Connecting AWS Lambda with Amazon RDS using AWS CDK and Node.js**](https://www.codewithyou.com/blog/connecting-aws-lambda-with-amazon-rds-using-aws-cdk-and-nodejs)| 2023-03-10
+[**How to Use Axios to Handle SSL/TLS Certificate Verification Errors in Node.js**](https://www.codewithyou.com/blog/how-to-use-axios-to-handle-ssltls-certificate-verification-errors-in-nodejs)| 2023-03-03
+[**How to Implement Retry with Exponential Backoff in Node.js**](https://www.codewithyou.com/blog/how-to-implement-retry-with-exponential-backoff-in-nodejs)| 2023-02-27
+[**Amazon API Gateway integration with AWS WAF**](https://www.codewithyou.com/blog/amazon-api-gateway-integration-with-aws-waf)| 2023-01-21
+[**How to link a Cognito account with a Google account(source code full stack)**](https://www.codewithyou.com/blog/how-to-link-a-cognito-account-with-a-google-accountfull-stack)| 2022-12-29
+[**Code anywhere. AWS Cloud9**](https://www.codewithyou.com/blog/code-anywhere-aws-cloud9)| 2022-12-23
+[**AWS Lambda support Node.js 18 now.**](https://www.codewithyou.com/blog/aws-lambda-support-nodejs-18-now-should-we-update-the-version-of-nodejs-in-the-lambda-runtime)| 2022-11-30
+[**Quasar 2 with Nuxt3 (Starter Template)**](https://www.codewithyou.com/blog/quasar-2-with-nuxt3-starter-template)| 2022-11-16
+[**AxiosError, Parse Error, Invalid header value char**](https://www.codewithyou.com/blog/axioserror-parse-error-invalid-header-value-char)| 2022-11-14
+[**Aurora Serverless V2 with AWS CDK**](https://www.codewithyou.com/blog/aurora-serverless-v2-with-aws-cdk)| 2022-11-09
+[**Enable CORS in AWS API Gateway + Lambda proxy integration with AWS CDK**](https://www.codewithyou.com/blog/enable-cors-api-with-aws-cdk)| 2022-10-28
+[**Add Google Adsense to Next.js, refreshed ads**](https://www.codewithyou.com/blog/add-google-adsense-to-nextjs-refreshed-ads)| 2022-10-26
 [**API Ultimate Guide, Stateful vs Stateless. The Key Differences**](https://www.codewithyou.com/blog/api-stateful-vs-stateless)| 2022-10-19
 [**Finally, we can use fetch API in node.js**](https://www.codewithyou.com/blog/finally-we-can-use-fetch-api-in-nodejs)| 2022-10-11
 [**Publishing an npx command to npm.**](https://www.codewithyou.com/blog/publish-a-npx-command-)| 2022-10-04
