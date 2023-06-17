@@ -2,7 +2,7 @@ import { Client } from '@elastic/elasticsearch';
 import fs from 'fs';
 import dotenv from 'dotenv';
 dotenv.config({
-  path: '.env'
+  path: '.env.local'
 });
 
 const client = new Client({

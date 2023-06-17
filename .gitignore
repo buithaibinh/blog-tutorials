@@ -26,3 +26,4 @@ nestjs-lambda-cdk
 puppeteer-lamba/docker/dist
 elasticsearch-demo/elasticsearch
 elasticsearch-demo/data
+.env
