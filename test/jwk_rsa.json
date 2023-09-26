@@ -1,0 +1,8 @@
+{
+  "kty": "RSA",
+  "kid": "unique-key-id",
+  "use": "sig",
+  "alg": "RS256",
+  "n": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuDzKFWttMqUhopzgFOglidlq2VRgWgb7GDrLpmpNK628JOxcr0OZXjeuoE9dZRpfL09YXRx6qdoo4pq9l8Ei1GN9HjMygb5NqQSx1OPDIAaiLJXkYguhS1UFPhsRGDzE3SMqcTRFgRHNiaVLh7IlmWb/OdujZhV/NwuihacaFAh5MNa5RdfoO32insTx+zO0R/AQ3BqvPEfTM5rTy1J3DZyHFjyTHODQTEEaP/GsLx5MuOS1cSFpaqFn/H0ahBBN4WY75pR3Gy/jH/JtrGLA5AFV1oZhAYp7WlGu+3d24muxf34QgTBtnN2n7vjG4M4SJbBtrIhHrL0P2kXcFOfvIwIDAQAB-----END PUBLIC KEY-----",
+  "e": "AQAB"
+}

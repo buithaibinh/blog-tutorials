@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Window Screen Capture and Canvas Example</title>
+
+        <style>
+            #topButton {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="startCapture">Start Window Capture</button>
+        <video id="captureVideo" autoplay></video>
+
+        <canvas id="canvas"></canvas>
+
+        <script>
+            document
+                .getElementById('startCapture')
+                .addEventListener('click', async () => {
+                    try {
+                        const stream =
+                            await navigator.mediaDevices.getDisplayMedia({
+                                video: { mediaSource: 'window' },
+                            });
+                        const videoElement =
+                            document.getElementById('captureVideo');
+                        videoElement.srcObject = stream;
+
+                        const canvas = document.getElementById('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        // Update canvas size to match video size
+                        videoElement.addEventListener('loadedmetadata', () => {
+                            canvas.width = videoElement.videoWidth;
+                            canvas.height = videoElement.videoHeight;
+                        });
+
+                        // Draw video frames onto the canvas
+                        videoElement.addEventListener('play', () => {
+                            function drawFrame() {
+                                if (
+                                    !videoElement.paused &&
+                                    !videoElement.ended
+                                ) {
+                                    ctx.drawImage(
+                                        videoElement,
+                                        0,
+                                        0,
+                                        canvas.width,
+                                        canvas.height
+                                    );
+                                    requestAnimationFrame(drawFrame);
+                                }
+                            }
+                            drawFrame();
+                        });
+                    } catch (error) {
+                        console.error('Error accessing screen capture:', error);
+                    }
+                });
+        </script>
+    </body>
+</html>
