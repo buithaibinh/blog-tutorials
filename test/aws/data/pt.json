@@ -1,0 +1,16 @@
+{
+  "download": {
+    "placeholder": "Cole o link do seu vídeo aqui",
+    "label": "URL do vídeo",
+    "button": "Baixar",
+    "hint": "Aviso legal: antes de usar essa ferramenta, você deve possuir os direitos desse vídeo ou obter permissão do proprietário.",
+    "required": "O URL do vídeo é obrigatório",
+    "invalid": "URL do vídeo inválido",
+    "clearAll": "Limpar tudo",
+    "duration": "Duração",
+    "play": "Jogar",
+    "btn": "Baixar",
+    "info": "Informações",
+    "remove": "Remover"
+  }
+}

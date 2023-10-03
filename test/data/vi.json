@@ -1,0 +1,16 @@
+{
+  "video": {
+    "download": "Tải về",
+    "advanced_download": "Bạn muốn chuyển đổi/cắt video?",
+    "quick_download": "Tải xuống nhanh?",
+    "cut": {
+      "title": "Cắt video",
+      "subtitle": "Cắt video trực tuyến",
+      "duration": "Thời lượng",
+      "start": "Thời gian bắt đầu",
+      "end": "Thời gian kết thúc",
+      "invalid": "Thời gian không hợp lệ",
+      "max_over_duration": "Thời lượng tối đa là {duration}"
+    }
+  }
+}

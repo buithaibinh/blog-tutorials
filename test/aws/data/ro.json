@@ -1,0 +1,16 @@
+{
+  "download": {
+    "placeholder": "Inserați linkul video aici",
+    "label": "URL-ul videoclipului",
+    "button": "Descarca",
+    "hint": "Declinare de responsabilitate legală: Înainte de a utiliza acest instrument, trebuie să dețineți drepturile asupra acestui videoclip sau să obțineți permisiunea proprietarului.",
+    "required": "Adresa URL a videoclipului este necesară",
+    "invalid": "Adresa URL a videoclipului nevalidă",
+    "clearAll": "Șterge tot",
+    "duration": "Durata",
+    "play": "Joaca",
+    "btn": "Descarca",
+    "info": "Info",
+    "remove": "Eliminați"
+  }
+}

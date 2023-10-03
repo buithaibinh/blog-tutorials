@@ -1,0 +1,16 @@
+{
+  "video": {
+    "download": "Descarca",
+    "advanced_download": "Doriți să convertiți/tăiați videoclipuri?",
+    "quick_download": "Descărcare rapidă?",
+    "cut": {
+      "title": "Tăiați videoclipul",
+      "subtitle": "Tăiați videoclipul online",
+      "duration": "Durata",
+      "start": "Ora de începere",
+      "end": "Ora de sfârșit",
+      "invalid": "Timp nevalid",
+      "max_over_duration": "Durata maximă este {durata}"
+    }
+  }
+}

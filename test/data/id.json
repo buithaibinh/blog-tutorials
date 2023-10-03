@@ -1,0 +1,16 @@
+{
+  "video": {
+    "download": "Unduh",
+    "advanced_download": "Ingin mengonversi/memotong video?",
+    "quick_download": "Unduh cepat?",
+    "cut": {
+      "title": "Potong video",
+      "subtitle": "Potong video secara online",
+      "duration": "Durasi",
+      "start": "Waktu mulai",
+      "end": "Waktu akhir",
+      "invalid": "Waktu tidak valid",
+      "max_over_duration": "Durasi maks adalah {durasi}"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "video": {
+    "download": "Baixar",
+    "advanced_download": "Quer converter/cortar vídeo?",
+    "quick_download": "Download rápido?",
+    "cut": {
+      "title": "Cortar vídeo",
+      "subtitle": "Cortar vídeo online",
+      "duration": "Duração",
+      "start": "Hora de início",
+      "end": "Hora de término",
+      "invalid": "Hora inválida",
+      "max_over_duration": "A duração máxima é {duration}"
+    }
+  }
+}

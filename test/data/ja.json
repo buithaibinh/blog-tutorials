@@ -1,0 +1,16 @@
+{
+  "video": {
+    "download": "[ダウンロード]",
+    "advanced_download": "動画を変換/カットしたいですか？",
+    "quick_download": "クイックダウンロード?",
+    "cut": {
+      "title": "動画をカット",
+      "subtitle": "ビデオをオンラインでカット",
+      "duration": "所要時間",
+      "start": "開始時間",
+      "end": "終了時刻",
+      "invalid": "時間が無効です",
+      "max_over_duration": "最大期間は {duration} です"
+    }
+  }
+}

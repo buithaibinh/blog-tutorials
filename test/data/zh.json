@@ -1,0 +1,16 @@
+{
+  "video": {
+    "download": "下载",
+    "advanced_download": "想要转换/剪切视频吗？",
+    "quick_download": "快速下载？",
+    "cut": {
+      "title": "剪切视频",
+      "subtitle": "在线剪切视频",
+      "duration": "持续时间",
+      "start": "开始时间",
+      "end": "结束时间",
+      "invalid": "时间无效",
+      "max_over_duration": "最大持续时间为 {持续时间}"
+    }
+  }
+}
