@@ -1,9 +1,13 @@
+import * as cdk from 'aws-cdk-lib';
+
 import {
-  AwsIntegration,
   Cors,
   MockIntegration,
   PassthroughBehavior,
   RestApi,
+  LogGroupLogDestination,
+  AccessLogFormat,
+  MethodLoggingLevel,
 } from 'aws-cdk-lib/aws-apigateway';
 import {
   Effect,
@@ -12,11 +16,12 @@ import {
   Role,
   ServicePrincipal,
 } from 'aws-cdk-lib/aws-iam';
+
 import { Construct } from 'constructs';
 import { ITable } from 'aws-cdk-lib/aws-dynamodb';
+import * as logs from 'aws-cdk-lib/aws-logs';
 
 interface CreateRestApiProps {
-  table: ITable;
   region: string;
 }
 
@@ -28,111 +33,32 @@ const METHOD_OPTIONS = {
   ],
 };
 
-function createPolicy(
-  scope: Construct,
-  table: ITable,
-  operation: 'GetItem' | 'PutItem'
-) {
-  const policy = new Policy(scope, `${operation}Policy`, {
-    statements: [
-      new PolicyStatement({
-        actions: [`dynamodb:${operation}`],
-        effect: Effect.ALLOW,
-        resources: [table.tableArn],
-      }),
-    ],
-  });
-  const role = new Role(scope, `${operation}Role`, {
-    assumedBy: new ServicePrincipal('apigateway.amazonaws.com'),
-  });
-  role.attachInlinePolicy(policy);
-  return role;
-}
-
 export function createRestApi(
   scope: Construct,
-  { table, region }: CreateRestApiProps
+  { region }: CreateRestApiProps
 ): RestApi {
-  const errorResponses = [
-    {
-      selectionPattern: '400',
-      statusCode: '400',
-      responseTemplates: {
-        'application/json': JSON.stringify({
-          error: 'Bad input!',
-        }),
+  const mockIntegration = new MockIntegration({
+    passthroughBehavior: PassthroughBehavior.NEVER,
+    requestTemplates: {
+      'application/json': JSON.stringify({ statusCode: 200 }),
+    },
+    integrationResponses: [
+      {
+        statusCode: '200',
+        responseTemplates: {
+          'application/json': JSON.stringify({
+            requestId: '$context.requestId',
+            region: '$stageVariables.REGION',
+          }),
+        },
       },
-    },
-    {
-      selectionPattern: '5\\d{2}',
-      statusCode: '500',
-      responseTemplates: {
-        'application/json': JSON.stringify({
-          error: 'Internal Service Error!',
-        }),
-      },
-    },
-  ];
-
-  const integrationResponses = [
-    {
-      statusCode: '200',
-    },
-    ...errorResponses,
-  ];
-
-  const getIntegration = new AwsIntegration({
-    action: 'GetItem',
-    options: {
-      credentialsRole: createPolicy(scope, table, 'GetItem'),
-      integrationResponses,
-      requestTemplates: {
-        'application/json': JSON.stringify({
-          Key: {
-            pk: {
-              S: '$method.request.path.pk',
-            },
-          },
-          TableName: `${table.tableName}`,
-        }),
-      },
-    },
-    service: 'dynamodb',
+    ],
   });
 
-  const createIntegration = new AwsIntegration({
-    action: 'PutItem',
-    options: {
-      credentialsRole: createPolicy(scope, table, 'PutItem'),
-      integrationResponses: [
-        {
-          statusCode: '200',
-          responseTemplates: {
-            'application/json': JSON.stringify({
-              requestId: '$context.requestId',
-            }),
-          },
-        },
-        ...errorResponses,
-      ],
-      requestTemplates: {
-        'application/json': JSON.stringify({
-          Item: {
-            pk: {
-              S: '$context.requestId',
-            },
-            name: {
-              S: "$input.path('$.name')",
-            },
-            region: {
-              S: '$stageVariables.REGION',
-            },
-          },
-          TableName: `${table.tableName}`,
-        }),
-      },
-    },
-    service: 'dynamodb',
+  // log all requests to CloudWatch
+  const apiGatewayLogGroup = new logs.LogGroup(scope, 'ApiGatewayLogGroup', {
+    retention: logs.RetentionDays.ONE_MONTH,
+    removalPolicy: cdk.RemovalPolicy.DESTROY,
   });
 
   const api = new RestApi(scope, 'Api', {
@@ -144,15 +70,22 @@ export function createRestApi(
       variables: {
         REGION: region,
       },
+      accessLogDestination: new LogGroupLogDestination(apiGatewayLogGroup),
+      accessLogFormat: AccessLogFormat.jsonWithStandardFields(),
+      loggingLevel: MethodLoggingLevel.INFO,
+      dataTraceEnabled: true,
+      metricsEnabled: true,
+      tracingEnabled: true,
     },
+    // TODO, Automatically configure an AWS CloudWatch role for API Gateway
+    cloudWatchRole: false,
   });
 
   const { root } = api;
 
-  const allResources = root.addResource('data');
-  allResources.addMethod('POST', createIntegration, METHOD_OPTIONS);
-  const oneResource = allResources.addResource('{pk}');
-  oneResource.addMethod('GET', getIntegration, METHOD_OPTIONS);
+  // mock endpoint for testing
+  const mock = root.addResource('mock');
+  mock.addMethod('GET', mockIntegration, METHOD_OPTIONS);
 
   return api;
 }

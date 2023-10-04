@@ -1,6 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import {
   DomainName,
   RestApi,
@@ -10,23 +9,19 @@ import {
   ARecord,
   CfnHealthCheck,
   CfnRecordSet,
-  CfnRecordSetGroup,
   HostedZone,
   RecordTarget,
 } from 'aws-cdk-lib/aws-route53';
 import { ApiGatewayDomain } from 'aws-cdk-lib/aws-route53-targets';
-
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 
 import { addHealthCheckEndpoint, createRestApi } from './api';
-
 interface AddApiGateWayDomainNameProps {
   region: string;
   domainName: string;
   restApi: RestApi;
   hostedZoneId: string;
 }
-
 interface CreateTableProps {
   region: REGION;
   tableName: string;
@@ -87,37 +82,10 @@ export class CdkMultiRegionActiveActiveStack extends cdk.Stack {
     const { hostedZoneId, domainName } = props;
     const region: REGION = props.env.region as REGION;
 
-    const table = this.createTable({
-      region,
-      tableName: `GlobalApplicationTable${getTableSuffix()}`,
-      replicationRegions: SECONDARY_REGIONS,
-    });
-
-    const restApi = createRestApi(this, { table, region });
+    const restApi = createRestApi(this, { region });
     addHealthCheckEndpoint(restApi);
 
     this.addApiGateWayDomainName({ domainName, restApi, hostedZoneId, region });
-  }
-
-  private createTable({
-    tableName,
-    replicationRegions,
-    region,
-  }: CreateTableProps) {
-    if (region === MAIN_REGION) {
-      return new Table(this, 'Table', {
-        tableName,
-        billingMode: BillingMode.PAY_PER_REQUEST,
-        partitionKey: {
-          name: 'pk',
-          type: AttributeType.STRING,
-        },
-        replicationRegions,
-        removalPolicy: cdk.RemovalPolicy.DESTROY,
-      });
-    } else {
-      return Table.fromTableName(this, 'Table', tableName);
-    }
   }
 
   private addApiGateWayDomainName({
